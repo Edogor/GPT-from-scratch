@@ -96,7 +96,7 @@ if mode == "train":
         log_path=log_path,
         config_path=config_path,
         resume_from=resume_from,
-        max_batches_per_epoch=1000,
+        max_batches_per_epoch=500,
         patience=3
     )
 
