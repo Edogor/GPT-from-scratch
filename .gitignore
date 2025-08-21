@@ -5,7 +5,18 @@
 .python-version
 .venv
 venv
-#something
+
+# data
+data/
+data_cache/
+# logs
+logs/
+# checkpoints and models
+checkpoints/
+bpe_tok/
+bpe_tok/*
+runs/
+
 
 # General ignores for macOS
 .DS_Store
