@@ -1,0 +1,15 @@
+Generated sample text for merges=10, n=4, lambdas=[4.860967526347699e-13, 9.832745968417715e-06, 0.4419580221477753, 0.5580321451057701]:
+
+--  or any show com than heaved: OCT'AMLET O At that maken his cons and is that; good cir it yet but man couldst, That of milky t
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=200, n=4, lambdas=[3.2528031108462075e-10, 0.618794186858232, 0.3812018020574253, 4.010759062329119e-06]:
+
+--  or any shown, to me, That exither. HACBA, Casses, Shens? I minelp, With le, And if I say, When I shall faticalit Some ton the math of maviaptains arthrows, And park to wombs, I throoforr
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=800, n=2, lambdas=[8.245760076959627e-06, 0.9999917542399229]:
+
+--  or any show my good my lord! GUCK OPHEL? First Macher. Des, I am appross'd to-heer; And that I am very much braid to behion: it is that sit of the world can being on his ter's death; For I'll follow? I am I'll seco, you have it. From Spectapultlpose of this moneying it
+------------------------------------------------------------------------------------------------------------------------
+
+Context for generated samples:
+-- or any show
