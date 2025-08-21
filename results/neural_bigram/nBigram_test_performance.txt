@@ -1,0 +1,21 @@
+merges=10, lr=3.000000e-02, dropout=0.0
+model parameters count: 72900
+Test PPL: 14.57, val PPL: 14.83, train PPL: 14.719625424654296
+Context: To be, or not
+Generated text (argmax):  To be, or nott thavedrte my ap'elont there, the slld nd. hal. oo myse pe An
+Generated text (sample):  To be, or nott thavedrte my ap'elont there, the slld nd. hal. oo myse pe An
+------------------------------------------------------------------------------------------------------------------------
+merges=200, lr=3.000000e-02, dropout=0.0
+model parameters count: 211600
+Test PPL: 35.37, val PPL: 36.26, train PPL: 34.190119625038946
+Context: To be, or not
+Generated text (argmax):  To be, or not, aged too, some would not to a prest the gos the dound the by of some hivedied. Scyemodguch is d
+Generated text (sample):  To be, or not, aged too, some would not to a prest the gos the dound the by of some hivedied. Scyemodguch is d
+------------------------------------------------------------------------------------------------------------------------
+merges=800, lr=3.000000e-02, dropout=0.0
+model parameters count: 1123600
+Test PPL: 76.02, val PPL: 74.53, train PPL: 49.19314914568915
+Context: To be, or not
+Generated text (argmax):  To be, or not? HAMLET Why, I dros of her master thank. OTHELLO Have. BENASS The crights a home, And, The sats, I have inter than he was. OTHELLO Not as
+Generated text (sample):  To be, or not? HAMLET Why, I dros of her master thank. OTHELLO Have. BENASS The crights a home, And, The sats, I have inter than he was. OTHELLO Not as
+------------------------------------------------------------------------------------------------------------------------
