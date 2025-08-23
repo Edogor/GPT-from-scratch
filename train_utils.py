@@ -138,12 +138,12 @@ def train_model(
             epochs_without_improvement = 0
             ckpt_path = f"{checkpoint_base}{epoch}.pt"
             torch.save(model.state_dict(), ckpt_path)
-            logger.info(f"✅ Checkpoint saved (best so far): {ckpt_path}")
+            logger.info(f" Checkpoint saved (best so far): {ckpt_path}")
         else:
             epochs_without_improvement += 1
-            logger.info(f"⚠️ No improvement in Val Loss for {epochs_without_improvement} epochs.")
+            logger.info(f" No improvement in Val Loss for {epochs_without_improvement} epochs.")
             if epochs_without_improvement >= patience:
-                logger.info(f"⏹ Early stopping triggered after {patience} epochs without improvement.")
+                logger.info(f" Early stopping triggered after {patience} epochs without improvement.")
                 break
 
     with open(config_path, "w") as f:

@@ -118,7 +118,7 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
     stop_flag    = {"done": False, "error": None}
 
     # Erste Meldung sofort zeigen
-    yield (f"📦 Creating run: {run_name}", gr.update(value=None), "—", 0.0)
+    yield (f" Creating run: {run_name}", gr.update(value=None), "—", 0.0)
 
     def _emit_from_log(log_path: str, run_dir: str):
         last_seen_epoch = None
@@ -128,7 +128,7 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
             try:
                 img_upd = gr.update()
                 newest_epoch_from_log = None
-                status = "⏳ Waiting for log…"
+                status = " Waiting for log…"
                 log = []
 
                 if os.path.exists(log_path):
@@ -186,11 +186,11 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
         """Komplette Pipeline (Prep + train_model) ohne train_utils-Modifikation."""
         try:
             # PREP: Dataset
-            last_payload["value"] = ("📚 Loading dataset…", gr.update(), "Preparing data", 0.05)
+            last_payload["value"] = (" Loading dataset…", gr.update(), "Preparing data", 0.05)
             train_text, val_text = load_dataset(TRAIN_PATH, VAL_PATH)
 
             # PREP: Tokenizer
-            last_payload["value"] = ("🔤 Training BPE tokenizer…", gr.update(), f"num_merges = {k_merges}", 0.10)
+            last_payload["value"] = (" Training BPE tokenizer…", gr.update(), f"num_merges = {k_merges}", 0.10)
             tokenizer = BPETokenizer(num_merges=int(k_merges))
             tokenizer.train(train_text)
 
@@ -199,9 +199,9 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
             tokenizer.save_vocab(os.path.join(tok_dir, "bpe_vocab.txt"))
 
             # PREP: Encoding
-            last_payload["value"] = ("✍️ Encoding train set…", gr.update(), "Encoding tokens (train)", 0.20)
+            last_payload["value"] = (" Encoding train set…", gr.update(), "Encoding tokens (train)", 0.20)
             train_ids = tokenizer.encode(train_text)
-            last_payload["value"] = ("✍️ Encoding val set…", gr.update(), "Encoding tokens (val)", 0.25)
+            last_payload["value"] = (" Encoding val set…", gr.update(), "Encoding tokens (val)", 0.25)
             val_ids   = tokenizer.encode(val_text)
 
             # PREP: Model init
@@ -217,7 +217,7 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
             model  = GPTModel(config)
             device = "cuda" if torch.cuda.is_available() else "cpu"
             model.to(device)
-            last_payload["value"] = ("🧠 Model initialized", gr.update(), f"device = {device}", 0.30)
+            last_payload["value"] = (" Model initialized", gr.update(), f"device = {device}", 0.30)
 
             # Dateien / Resume
             checkpoint_base = os.path.join(run_dir, "gpt_epoch")
@@ -237,7 +237,7 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
             watcher.start()
 
             # TRAIN
-            last_payload["value"] = ("🚀 Starting training…", gr.update(), "Epoch 1", 0.35)
+            last_payload["value"] = (" Starting training…", gr.update(), "Epoch 1", 0.35)
             train_model(
                 model, train_ids, val_ids, config, device,
                 checkpoint_base=checkpoint_base,
@@ -272,9 +272,9 @@ def start_training_stream(k_merges, n_layer, n_embd, n_head, block_size, dropout
         last_payload["value"] = None
 
     if stop_flag["error"]:
-        yield (f"❌ Training failed: {stop_flag['error']}", gr.update(), "Error", 0.0)
+        yield (f" Training failed: {stop_flag['error']}", gr.update(), "Error", 0.0)
     else:
-        yield (f"🎉 Training finished: {run_name}", gr.update(), "Done", 1.0)
+        yield (f"Training finished: {run_name}", gr.update(), "Done", 1.0)
 
 # ------------------------------------------------------------
 # Run-Übersicht
@@ -315,7 +315,7 @@ def list_runs_dropdown():
 
 def generate_text_from_model(run_name, prompt, max_tokens, temperature, top_k):
     if not run_name:
-        return "❌ Kein Modell ausgewählt."
+        return " Kein Modell ausgewählt."
     run_dir = os.path.join("runs", run_name)
     tok_dir = os.path.join(run_dir, "tokenizer")
 
@@ -334,7 +334,7 @@ def generate_text_from_model(run_name, prompt, max_tokens, temperature, top_k):
 
     cps = _sorted_checkpoints(run_dir)
     if not cps:
-        return "❌ Kein Modell-Checkpoint gefunden."
+        return " Kein Modell-Checkpoint gefunden."
     ckpt_path = os.path.join(run_dir, cps[-1])
     load_model(model, ckpt_path, device)
 
@@ -356,7 +356,7 @@ def generate_text_from_model(run_name, prompt, max_tokens, temperature, top_k):
 # UI
 # ------------------------------------------------------------
 with gr.Blocks() as demo:
-    with gr.Tab("📦 Neues Modell erstellen & trainieren"):
+    with gr.Tab(" Neues Modell erstellen & trainieren"):
         gr.Markdown("### GPT-Modell starten")
 
         k_merges   = gr.Slider(0, 1000, value=200, step=50, label="BPE Merges (k)")
@@ -366,7 +366,7 @@ with gr.Blocks() as demo:
         block_size = gr.Slider(16, 256, value=64, step=32, label="Blockgröße (Kontext)")
         dropout    = gr.Slider(0.0, 0.3, value=0.1, step=0.05, label="Dropout")
 
-        start_btn = gr.Button("🚀 Training starten", variant="primary")
+        start_btn = gr.Button(" Training starten", variant="primary")
 
         status    = gr.Textbox(label="Status", interactive=False)
         with gr.Row():
@@ -390,14 +390,14 @@ with gr.Blocks() as demo:
             outputs=[status, live_plot, substatus, progress]
         )
 
-    with gr.Tab("📂 Vorhandene Runs"):
+    with gr.Tab(" Vorhandene Runs"):
         gr.Markdown("### Wähle ein vorhandenes Modell")
         df = gr.Dataframe(
             headers=["run", "epoch", "train_loss", "val_loss", "ppl", "n_layer", "n_embd", "block_size"],
             interactive=False,
             label="Modellübersicht"
         )
-        refresh_btn  = gr.Button("🔄 Liste aktualisieren")
+        refresh_btn  = gr.Button(" Liste aktualisieren")
         selected_txt = gr.Textbox(label="Gewählter Run (zum Kopieren)", interactive=False)
 
         def refresh_table():
@@ -415,7 +415,7 @@ with gr.Blocks() as demo:
         refresh_btn.click(refresh_table, outputs=df)
         df.select(select_row, outputs=selected_txt)
 
-        with gr.Tab("🧠 Text generieren"):
+        with gr.Tab(" Text generieren"):
             gr.Markdown("### Wähle ein Modell und generiere Text")
 
             with gr.Row():
@@ -423,7 +423,7 @@ with gr.Blocks() as demo:
                     choices=_list_runs_dir(),
                     label="Modell wählen (Run-Ordner)"
                 )
-                refresh_gen_btn = gr.Button("🔄")
+                refresh_gen_btn = gr.Button("reload")
                 refresh_gen_btn.click(lambda: gr.update(choices=_list_runs_dir()), outputs=selected_gen_run)
 
             prompt_input = gr.Textbox(label="Prompt (optional)", placeholder="z. B. Once upon a time")
@@ -431,7 +431,7 @@ with gr.Blocks() as demo:
             temperature  = gr.Slider(0.1, 2.0, value=1.0, step=0.1, label="Temperature")
             top_k        = gr.Slider(0, 100, value=20, step=1, label="Top-k (0 = deaktiviert)")
 
-            gen_btn    = gr.Button("🎬 Text generieren")
+            gen_btn    = gr.Button("Text generieren")
             gen_output = gr.Textbox(label="Output")
 
             gen_btn.click(

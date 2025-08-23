@@ -41,7 +41,7 @@ class BPETokenizer:
 
         self.bpe_ranks = {pair: i for i, pair in enumerate(merges)}
 
-        # 🔧 Jetzt: Vokabular direkt aus echter BPE-Tokenisierung erzeugen!
+        # Jetzt: Vokabular direkt aus echter BPE-Tokenisierung erzeugen!
         all_tokens = set()
         for word in words:
             tokens = self.bpe(word)  # ← echte BPE-Tokenisierung
