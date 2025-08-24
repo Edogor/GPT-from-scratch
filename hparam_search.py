@@ -12,7 +12,7 @@ from dataclasses import dataclass
 from typing import Dict, Any, Iterable, List
 from itertools import product
 
-from train_lm import train, ConfigTrain
+from train_mj import train, ConfigTrain
 from neural_bigram import NeuralBigram, ConfigNeuralBigram
 from GPT_mj import GPT, ConfigGPT
 from utils import WarmupThenCosine, init_dataloader, count_params
