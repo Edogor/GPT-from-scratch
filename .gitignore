@@ -9,14 +9,16 @@ venv
 # data
 data/
 data_cache/
+notes.txt
+
 # logs
 logs/
+
 # checkpoints and models
 checkpoints/
 bpe_tok/
 bpe_tok/*
 runs/
-
 
 # General ignores for macOS
 .DS_Store

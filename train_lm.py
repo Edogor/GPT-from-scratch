@@ -7,7 +7,7 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.amp import GradScaler, autocast
 from torch.utils.tensorboard import SummaryWriter
 
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from typing import Optional, Dict, Any
 import os
 from dataclasses import dataclass
@@ -87,6 +87,7 @@ def train(
     scaler: Optional[GradScaler] = None,
     writer: Optional[SummaryWriter] = None,
     verbose: bool = False,
+    show_pbar: bool = True,
 ) -> Dict[str, Any]:
     """
     Train the model with the given training and validation DataLoaders and configuration.
@@ -103,6 +104,7 @@ def train(
     - scaler: Optional GradScaler for mixed precision training. If None, a new one is created.
     - writer: Optional SummaryWriter for TensorBoard logging.
     - verbose: If True, prints progress messages.
+    - show_pbar: If True, shows progress bars.
 
     Returns:
     - history: A dictionary containing training and validation loss and perplexity history.
@@ -122,12 +124,14 @@ def train(
         scaler = GradScaler(enabled=cfg.use_amp)
 
     start_epoch = 0
-    best_val_ppl = float("inf")
-    best_train_ppl = float("inf")
-    val_avg_loss = float("inf")
-    val_ppl = float("inf")
+    best_val_loss = torch.inf
+    best_train_loss = torch.inf
     no_improve = 0
     earrly_stop = False
+
+    val_avg_loss = torch.inf
+    val_ppl = torch.inf
+    epoch = 0
 
     log_each_n_step = cfg.eval_interval * len(train_loader) // 4
     if resume_from and os.path.exists(resume_from):
@@ -143,7 +147,9 @@ def train(
 
     #### training loop ####
     history = {"train_loss": [], "train_ppl": [], "val_ppl": [], "val_loss": []}
-    pbar_epoch = tqdm(range(start_epoch, cfg.epochs), total=cfg.epochs, desc="Training Progress", leave=True)
+    pbar_epoch = tqdm(
+        range(start_epoch, cfg.epochs), total=cfg.epochs, desc="Training Progress", leave=True, disable=not show_pbar
+    )
     for epoch in pbar_epoch:
         model.train(True)
         running_loss = 0.0
@@ -151,7 +157,13 @@ def train(
         running_tokens = 0
         optimizer.zero_grad(set_to_none=True)
 
-        pbar = tqdm(enumerate(train_loader), total=len(train_loader), desc=f"Epoch {epoch+1}/{cfg.epochs}", leave=False)
+        pbar = tqdm(
+            enumerate(train_loader),
+            total=len(train_loader),
+            desc=f"Epoch {epoch+1}/{cfg.epochs}",
+            leave=False,
+            disable=not show_pbar,
+        )
         for step, (x, y) in pbar:
             x = x.to(device, non_blocking=True)
             y = y.to(device, non_blocking=True)
@@ -180,7 +192,7 @@ def train(
             running_tokens += B * T
 
             # train_avg_loss = running_loss / max(1, step + 1)
-            train_avg_loss_sum = running_loss_sum / max(1, running_tokens)
+            train_avg_loss = running_loss_sum / max(1, running_tokens)
 
             # write model graph to TensorBoard
             if writer is not None:
@@ -190,7 +202,7 @@ def train(
                     writer.add_scalar("train/loss_step_sum", loss_sum.item(), global_step)
 
         # model.train(False)
-        train_ppl = torch.exp(torch.tensor(train_avg_loss_sum)).item()
+        train_ppl = torch.exp(torch.tensor(train_avg_loss)).item()
 
         # each eval_interval epochs, run evaluation
         if (epoch + 1) % cfg.eval_interval == 0 or epoch == cfg.epochs - 1:
@@ -200,10 +212,8 @@ def train(
             val_ppl = torch.exp(torch.tensor(val_avg_loss)).item()
 
             # early stopping update on validation ppl
-            if val_ppl < best_val_ppl - cfg.early_stop_tolerance:
+            if val_avg_loss < best_val_loss - cfg.early_stop_tolerance:
                 no_improve = 0
-                best_val_ppl = val_ppl  # update best perplexity
-
             else:
                 no_improve += 1
                 earrly_stop = cfg.early_stop_patience and no_improve >= cfg.early_stop_patience
@@ -211,7 +221,7 @@ def train(
                     print(f"No improvement ({no_improve}/{cfg.early_stop_patience}).")
 
             #### logging ####
-            history["train_loss"].append(train_avg_loss_sum)
+            history["train_loss"].append(train_avg_loss)
             history["train_ppl"].append(train_ppl)
             history["val_loss"].append(val_avg_loss)
             history["val_ppl"].append(val_ppl)
@@ -220,7 +230,7 @@ def train(
                 writer.add_scalars(
                     "epoch/loss",
                     {
-                        "train_loss": train_avg_loss_sum,
+                        "train_loss": train_avg_loss,
                         "val_loss": val_avg_loss,
                     },
                     epoch,
@@ -234,16 +244,11 @@ def train(
                     epoch,
                 )
 
-            #     for name, p in model.named_parameters():
-            #         writer.add_histogram(f"weights/{name}", p.data, epoch)
-
         # on non-eval epochs, check early stopping on train ppl
         else:
             # early stopping update on training ppl
-            if train_ppl < best_train_ppl - cfg.early_stop_tolerance:
+            if train_avg_loss < best_train_loss - cfg.early_stop_tolerance:
                 no_improve = 0
-                best_train_ppl = train_ppl  # update best perplexity
-
             else:
                 no_improve += 1
                 earrly_stop = cfg.early_stop_patience and no_improve >= cfg.early_stop_patience
@@ -253,7 +258,7 @@ def train(
         # checkpoint
         if (epoch + 1) % cfg.ckpt_interval == 0 or epoch == cfg.epochs - 1 or earrly_stop:
             ckpt_path = cfg.ckpt_last_path
-            if val_ppl < best_val_ppl:
+            if val_avg_loss < best_val_loss:
                 ckpt_path = cfg.ckpt_best_path
 
             save_checkpoint(
@@ -264,15 +269,20 @@ def train(
                     "scheduler": scheduler.state_dict(),
                     "scaler": scaler.state_dict(),
                     "no_improve": no_improve,
-                    "loss": train_avg_loss_sum,
+                    "loss": val_avg_loss,
                     "config": vars(cfg),
                 },
                 ckpt_path,
             )
 
+        if val_avg_loss < best_val_loss:
+            best_val_loss = val_avg_loss  # update best loss
+        if train_avg_loss < best_train_loss:
+            best_train_loss = train_avg_loss
+
         # update epoch progress bar
         pbar_epoch.set_postfix(
-            train_loss=f"{train_avg_loss_sum:.4f}",
+            train_loss=f"{train_avg_loss:.4f}",
             train_ppl=f"{train_ppl:.2f}",
             val_loss=f"{val_avg_loss:.4f}",
             val_ppl=f"{val_ppl:.2f}",
@@ -291,10 +301,10 @@ def train(
 
     return {
         "history": history,
-        "best_val_ppl": best_val_ppl,
-        "best_train_ppl": best_train_ppl,
-        "best_val_loss": torch.log(torch.tensor(best_val_ppl)).item(),
-        "best_train_loss": torch.log(torch.tensor(best_train_ppl)).item(),
+        "best_val_ppl": torch.exp(torch.tensor(best_val_loss)).item(),
+        "best_train_ppl": torch.exp(torch.tensor(train_avg_loss)).item(),
+        "best_val_loss": best_val_loss,
+        "best_train_loss": best_train_loss,
         "last_epoch": epoch,
     }
 

@@ -96,8 +96,6 @@ def train_bytelevel_bpe(
         os.makedirs(save_dir, exist_ok=True)
         path = os.path.join(save_dir, f"{save_filename}.json")
         tok.save(path)
-        # print(f"Saved tokenizer to {path} | vocab={len(tok.get_vocab())} (requested merges={merges})")
-
     return tok
 
 
@@ -109,9 +107,12 @@ def train_and_encode_tokenizer(
     *,
     tokenizer_trainer,  # e.g. train_bytelevel_bpe
     train_text_path: str,
-    other_texts_paths: dict[str:str],
+    other_texts_paths: dict[str:str] = None,
     **kwargs,
 ) -> Dict[str, Any]:
+
+    if other_texts_paths is None:
+        other_texts_paths = {}
 
     with open(train_text_path, "r", encoding="utf-8") as f:
         train_text = f.read()
@@ -276,6 +277,9 @@ def plot_heaps(N, V, K=None, beta=None, ax=None, title="Heaps' law"):
     return ax
 
 
+# region hparam search
+
+
 def fit_tokenizer_params(
     *,
     train_text_path: str,
@@ -316,7 +320,7 @@ def fit_tokenizer_params(
             min_frequency=min_frequency,
             lowercase=lowercase,
             add_prefix_space=add_prefix_space,
-            name=f"bpe_k{m}",
+            save_filename=f"bpe_{m}",
         )
 
         # encode without auto special tokens
