@@ -1,33 +1,56 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.utils.data import Dataset, DataLoader
-from torch.optim.lr_scheduler import CosineAnnealingLR
-from typing import Optional, Union, Dict, Any
+from typing import Optional
 import math
+import dataclasses
+
+
+@dataclasses.dataclass
+class ConfigNeuralBigram:
+    vocab_size: int = 256
+    dropout: float = 0.0
 
 
 class NeuralBigram(nn.Module):
-    def __init__(self, vocab_size, embedding_dim=128, use_output_layer=True, dropout=0.0):
+    def __init__(self, config: ConfigNeuralBigram):
         super(NeuralBigram, self).__init__()
-        self.vocab_size = vocab_size
-        self.embedding_dim = embedding_dim
-        self.use_output_layer = use_output_layer
-        self.dropout = nn.Dropout(dropout) if dropout and dropout > 0 else nn.Identity()
-        if use_output_layer:
-            self.embedding = nn.Embedding(vocab_size, embedding_dim)
-            self.fc = nn.Linear(embedding_dim, vocab_size)
-        else:
-            self.embedding = nn.Embedding(vocab_size, vocab_size)
+        self.vocab_size = config.vocab_size
+        self.dropout_rate = config.dropout
+        self.embedding = nn.Embedding(config.vocab_size, config.vocab_size)
+        self.dropout = nn.Dropout(config.dropout)
 
-    def forward(self, x, logits=True):
+    def forward(self, x):
         x = self.embedding(x)
         x = self.dropout(x)
-        if self.use_output_layer:
-            x = self.fc(x)
-        if not logits:
-            x = F.log_softmax(x, dim=-1)
         return x
+
+    @torch.no_grad()
+    def generate_0(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+        """
+        Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
+        the sequence max_new_tokens times, feeding the predictions back into the model each time.
+        Most likely you'll want to make sure to be in model.eval() mode of operation for this.
+        """
+        for _ in range(max_new_tokens):
+            # if the sequence context is growing too long we must crop it at block_size
+            idx_cond = idx if idx.size(1) <= self.block_size else idx[:, -self.block_size :]
+            # forward the model to get the logits for the index in the sequence
+            logits = self(idx_cond)
+            # pluck the logits at the final step and scale by desired temperature
+            logits = logits[:, -1, :] / temperature
+            # optionally crop the logits to only the top k options
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                logits[logits < v[:, [-1]]] = -float("Inf")
+            # apply softmax to convert logits to (normalized) probabilities
+            probs = F.softmax(logits, dim=-1)
+            # sample from the distribution
+            idx_next = torch.multinomial(probs, num_samples=1)
+            # append sampled index to the running sequence and continue
+            idx = torch.cat((idx, idx_next), dim=1)
+
+        return idx
 
     @torch.no_grad()
     def generate(
@@ -61,23 +84,18 @@ class NeuralBigram(nn.Module):
         - Generated token IDs of shape (B, T_out).
         """
         assert input_ids.dtype == torch.long, "input_ids must be LongTensor (token IDs)."
-
         was_training = self.training
         self.eval()
-
         device = device or next(self.parameters()).device
-        x = input_ids.to(device)
 
+        x = input_ids.to(device)
         B = x.size(0)
         finished = torch.zeros(B, dtype=torch.bool, device=device)
-
         for _ in range(max_new_tokens):
             # context: last token only (shape (B, 1))
             last_tok = x[:, -1:].to(device)
-
             # logits: (B, 1, V) -> take last step -> (B, V)
-            logits = self(last_tok, logits=True)[:, -1, :]
-
+            logits = self(last_tok)[:, -1, :]
             # repetition penalty (simple): down-weight tokens already present
             if repetition_penalty and repetition_penalty != 1.0:
                 for b in range(B):
@@ -134,78 +152,29 @@ class NeuralBigram(nn.Module):
             self.train()
         return x
 
+    @torch.no_grad()
+    def generate_0(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+        """
+        Take a conditioning sequence of indices idx (LongTensor of shape (b,t)) and complete
+        the sequence max_new_tokens times, feeding the predictions back into the model each time.
+        Most likely you'll want to make sure to be in model.eval() mode of operation for this.
+        """
+        for _ in range(max_new_tokens):
+            # if the sequence context is growing too long we must crop it at block_size
+            idx_cond = idx if idx.size(1) <= self.block_size else idx[:, -self.block_size :]
+            # forward the model to get the logits for the index in the sequence
+            logits = self(idx_cond)
+            # pluck the logits at the final step and scale by desired temperature
+            logits = logits[:, -1, :] / temperature
+            # optionally crop the logits to only the top k options
+            if top_k is not None:
+                v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+                logits[logits < v[:, [-1]]] = -float("Inf")
+            # apply softmax to convert logits to (normalized) probabilities
+            probs = F.softmax(logits, dim=-1)
+            # sample from the distribution
+            idx_next = torch.multinomial(probs, num_samples=1)
+            # append sampled index to the running sequence and continue
+            idx = torch.cat((idx, idx_next), dim=1)
 
-# region Dataset and DataLoader
-class TextDataset(Dataset):
-    def __init__(self, text_ids, block_size=128):
-        super(TextDataset, self).__init__()
-        self.text_ids = text_ids
-        self.block_size = block_size
-
-    def __len__(self):
-        return (len(self.text_ids) - 1) // self.block_size
-
-    def __getitem__(self, idx):
-        start = idx * self.block_size
-        end = start + self.block_size
-        x = torch.tensor(self.text_ids[start:end], dtype=torch.long)
-        y = torch.tensor(self.text_ids[start + 1 : end + 1], dtype=torch.long)
-        return x, y
-
-
-def init_dataloader(data_ids, block_size=128, batch_size=64, train=True, shuffle=True):
-    train_dataset = TextDataset(data_ids, block_size)
-    if torch.cuda.is_available():
-        num_workers = 4
-        persistent_workers = True
-        pin_memory = True
-        prefetch_factor = 2
-    else:
-        num_workers = 0
-        persistent_workers = False
-        pin_memory = False
-        prefetch_factor = None
-
-    if train:
-        train_loader = DataLoader(
-            train_dataset,
-            batch_size=batch_size,
-            shuffle=shuffle,
-            num_workers=num_workers,
-            persistent_workers=persistent_workers,
-            pin_memory=pin_memory,
-            prefetch_factor=prefetch_factor,
-        )
-    else:
-        train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers)
-    return train_loader
-
-
-# region utils
-class WarmupThenCosine(torch.optim.lr_scheduler._LRScheduler):
-    def __init__(self, optimizer, warmup_steps, total_steps, last_epoch=-1, eta_min=0.0):
-        self.warmup_steps = max(0, warmup_steps)
-        self.total_steps = total_steps
-        self.cosine = None
-        self.eta_min = eta_min
-        super().__init__(optimizer, last_epoch)
-
-    def get_lr(self):
-        step = self.last_epoch + 1
-        if self.warmup_steps > 0 and step <= self.warmup_steps:
-            scale = step / self.warmup_steps
-            return [base_lr * scale for base_lr in self.base_lrs]
-        # initialize cosine on first post-warmup call
-        if self.cosine is None:
-            # remaining steps after warmup
-            remain = max(1, self.total_steps - self.warmup_steps)
-            self.cosine = CosineAnnealingLR(self.optimizer, T_max=remain, eta_min=self.eta_min)
-            self.cosine.last_epoch = -1  # reset internal counter so first get_lr() is step 0
-        return self.cosine.get_last_lr()
-
-    def step(self, epoch=None):
-        # Advance this scheduler
-        super().step(epoch)
-        # Also advance cosine if active and after warmup
-        if self.cosine is not None:
-            self.cosine.step(epoch if epoch is not None else None)
+        return idx

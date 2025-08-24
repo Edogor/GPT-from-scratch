@@ -11,6 +11,7 @@ import json
 
 logger = logging.getLogger(__name__)
 
+
 # --- DATASET ---
 class CharDataset(Dataset):
     def __init__(self, data, block_size):
@@ -21,20 +22,22 @@ class CharDataset(Dataset):
         return len(self.data) - self.block_size
 
     def __getitem__(self, idx):
-        x = torch.tensor(self.data[idx:idx + self.block_size], dtype=torch.long)
-        y = torch.tensor(self.data[idx + 1:idx + self.block_size + 1], dtype=torch.long)
+        x = torch.tensor(self.data[idx : idx + self.block_size], dtype=torch.long)
+        y = torch.tensor(self.data[idx + 1 : idx + self.block_size + 1], dtype=torch.long)
         return x, y
+
 
 # --- DATA LOADING ---
 def load_dataset(train_path, val_path):
     logger.info(f"Loading training data from {train_path}")
-    with open(train_path, 'r', encoding='utf-8') as f:
+    with open(train_path, "r", encoding="utf-8") as f:
         train_text = f.read()
     logger.info(f"Loading validation data from {val_path}")
-    with open(val_path, 'r', encoding='utf-8') as f:
+    with open(val_path, "r", encoding="utf-8") as f:
         val_text = f.read()
     logger.info("Dataset loading completed")
     return train_text, val_text
+
 
 # --- CHECKPOINT LOADING ---
 def load_model(model, path, device):
@@ -43,10 +46,12 @@ def load_model(model, path, device):
     model.eval()
     logger.info(f"Model loaded from {path}")
 
+
 # --- TRAINING LOGGING ---
 def save_training_log(log_data, path):
     with open(path, "w") as f:
         json.dump(log_data, f, indent=2)
+
 
 def load_training_log(path):
     if os.path.exists(path):
@@ -54,12 +59,22 @@ def load_training_log(path):
             return json.load(f)
     return []
 
+
 # --- TRAINING ---
-def train_model(model, train_ids, val_ids, config, device,
-                checkpoint_base, log_path, config_path,
-                resume_from=None, max_batches_per_epoch=1000,
-                patience=5):
-    
+def train_model(
+    model,
+    train_ids,
+    val_ids,
+    config,
+    device,
+    checkpoint_base,
+    log_path,
+    config_path,
+    resume_from=None,
+    max_batches_per_epoch=1000,
+    patience=5,
+):
+
     logger.info("Starting model training")
     training_log = load_training_log(log_path)
     train_ds = CharDataset(train_ids, config.block_size)
@@ -107,15 +122,14 @@ def train_model(model, train_ids, val_ids, config, device,
         perplexity = torch.exp(torch.tensor(val_loss)).item()
         elapsed = time.time() - start_time
 
-        logger.info(f"Epoch {epoch}/{num_epochs} completed in {elapsed:.2f}s | Train Loss: {avg_train_loss:.4f} | Val Loss: {val_loss:.4f} | Perplexity: {perplexity:.2f}")
+        logger.info(
+            f"Epoch {epoch}/{num_epochs} completed in {elapsed:.2f}s | Train Loss: {avg_train_loss:.4f} | Val Loss: {val_loss:.4f} | Perplexity: {perplexity:.2f}"
+        )
 
         # Save log entry
-        training_log.append({
-            "epoch": epoch,
-            "train_loss": avg_train_loss,
-            "val_loss": val_loss,
-            "val_perplexity": perplexity
-        })
+        training_log.append(
+            {"epoch": epoch, "train_loss": avg_train_loss, "val_loss": val_loss, "val_perplexity": perplexity}
+        )
         save_training_log(training_log, log_path)
 
         # Early Stopping logic
@@ -124,12 +138,12 @@ def train_model(model, train_ids, val_ids, config, device,
             epochs_without_improvement = 0
             ckpt_path = f"{checkpoint_base}{epoch}.pt"
             torch.save(model.state_dict(), ckpt_path)
-            logger.info(f"✅ Checkpoint saved (best so far): {ckpt_path}")
+            logger.info(f" Checkpoint saved (best so far): {ckpt_path}")
         else:
             epochs_without_improvement += 1
-            logger.info(f"⚠️ No improvement in Val Loss for {epochs_without_improvement} epochs.")
+            logger.info(f" No improvement in Val Loss for {epochs_without_improvement} epochs.")
             if epochs_without_improvement >= patience:
-                logger.info(f"⏹ Early stopping triggered after {patience} epochs without improvement.")
+                logger.info(f" Early stopping triggered after {patience} epochs without improvement.")
                 break
 
     with open(config_path, "w") as f:
@@ -147,21 +161,23 @@ def evaluate(model, loader, device):
             total_loss += loss.item()
     return total_loss / len(loader)
 
+
 # --- TEXT GENERATION ---
 def generate_text(model, start_ids, max_new_tokens=100, device="cpu", temperature=1.0, top_k=None):
     model.eval()
     idx = torch.tensor(start_ids, dtype=torch.long, device=device)[None, :]
     for _ in range(max_new_tokens):
-        idx_cond = idx[:, -model.block_size:]
+        idx_cond = idx[:, -model.block_size :]
         logits, _ = model(idx_cond)
         logits = logits[:, -1, :] / temperature
         if top_k is not None:
             v, _ = torch.topk(logits, top_k)
-            logits[logits < v[:, [-1]]] = -float('Inf')
+            logits[logits < v[:, [-1]]] = -float("Inf")
         probs = F.softmax(logits, dim=-1)
         next_id = torch.multinomial(probs, num_samples=1)
         idx = torch.cat((idx, next_id), dim=1)
     return idx[0].tolist()
+
 
 # --- PERPLEXITY ---
 def calculate_perplexity(model, data_ids, config, device, batch_size=32):
@@ -181,6 +197,7 @@ def calculate_perplexity(model, data_ids, config, device, batch_size=32):
     avg_loss = total_loss / count
     perplexity = torch.exp(torch.tensor(avg_loss)).item()
     return perplexity
+
 
 # --- PLOT TRAINING ---
 def plot_training_log(log_path="training_log.json", save_path="training_plot.png"):

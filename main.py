@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 # --- SETTINGS ---
 train_path = "../corpora/Shakespeare_clean_train.txt"
 val_path = "../corpora/Shakespeare_clean_valid.txt"
-num_merges = 50
+num_merges = 60
 mode = "train"  # "train" oder "generate"
 resume = False
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -105,15 +105,15 @@ elif mode == "generate":
     logger.info("Step 5: Generation mode selected")
 
     if not os.path.exists("runs"):
-        raise FileNotFoundError("⚠️ Kein 'runs' Ordner vorhanden – bitte zuerst trainieren.")
+        raise FileNotFoundError("Kein 'runs' Ordner vorhanden bitte zuerst trainieren.")
 
     # Finde passenden Run
     matching_runs = sorted([r for r in os.listdir("runs") if f"k{num_merges}" in r])
     if not matching_runs:
-        raise ValueError(f"⚠️ Kein Run mit k={num_merges} gefunden!")
+        raise ValueError(f" Kein Run mit k={num_merges} gefunden!")
     run_name = matching_runs[-1]
     run_dir = os.path.join("runs", run_name)
-    logger.info(f"📂 Verwende Run: {run_name}")
+    logger.info(f" Verwende Run: {run_name}")
 
     # Lade Tokenizer
     tokenizer = BPETokenizer(num_merges=num_merges)
@@ -130,7 +130,7 @@ elif mode == "generate":
     model.to(device)
     ckpts = sorted([f for f in os.listdir(run_dir) if f.startswith("gpt_epoch") and f.endswith(".pt")])
     if not ckpts:
-        raise FileNotFoundError("⚠️ Kein Modell-Checkpoint gefunden!")
+        raise FileNotFoundError("Kein Modell-Checkpoint gefunden!")
     last_ckpt = os.path.join(run_dir, ckpts[-1])
     load_model(model, last_ckpt, device)
 

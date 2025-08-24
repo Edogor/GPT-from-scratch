@@ -11,7 +11,7 @@ import pandas as pd
 from functools import partial
 
 import os
-from typing import List
+from typing import List, Callable, Dict, Any
 
 
 SPECIAL_TOKENS = {
@@ -30,9 +30,9 @@ def train_bytelevel_bpe(
     lowercase: bool = False,
     add_prefix_space: bool = True,
     save_dir: str = "bpe_tok",
-    name: str = None,
     special_tokens: dict = SPECIAL_TOKENS,
     initial_alphabet: List[str] = ByteLevel.alphabet(),
+    save_filename: str = None,
 ) -> Tokenizer:
     """
     Train a byte-level BPE tokenizer on the provided text files.
@@ -76,7 +76,7 @@ def train_bytelevel_bpe(
         min_frequency=min_frequency,
         special_tokens=list(special_tokens.values()),
         initial_alphabet=initial_alphabet,  # ensure 256 bytes are present
-        show_progress=True,
+        show_progress=False,
     )
 
     # Train on your text files (can pass many)
@@ -92,17 +92,62 @@ def train_bytelevel_bpe(
         ],
     )
 
-    if name is not None:
+    if save_filename is not None:
         os.makedirs(save_dir, exist_ok=True)
-        path = os.path.join(save_dir, f"{name}.json")
+        path = os.path.join(save_dir, f"{save_filename}.json")
         tok.save(path)
-        # print(f"Saved tokenizer to {path} | vocab={len(tok.get_vocab())} (requested merges={merges})")
-
     return tok
 
 
 def load_tokenizer(path: str) -> Tokenizer:
     return Tokenizer.from_file(path)
+
+
+def train_and_encode_tokenizer(
+    *,
+    tokenizer_trainer,  # e.g. train_bytelevel_bpe
+    train_text_path: str,
+    other_texts_paths: dict[str:str] = None,
+    **kwargs,
+) -> Dict[str, Any]:
+
+    if other_texts_paths is None:
+        other_texts_paths = {}
+
+    with open(train_text_path, "r", encoding="utf-8") as f:
+        train_text = f.read()
+    other_texts = {}
+    for key, path in other_texts_paths.items():
+        with open(path, "r", encoding="utf-8") as f:
+            other_texts[key] = f.read()
+
+    tok = tokenizer_trainer(
+        files=[train_text_path],
+        **kwargs,
+    )
+    encode = partial(tok.encode, add_special_tokens=False)
+
+    pad_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("pad", "<pad>")
+    bos_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("bos", "<bos>")
+    eos_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("eos", "<eos>")
+    pad_id = tok.token_to_id(pad_token)
+    bos_id = tok.token_to_id(bos_token)
+    eos_id = tok.token_to_id(eos_token)
+
+    train_ids = encode(train_text).ids
+    other_texts_ids = {}
+    for key, text in other_texts.items():
+        other_texts_ids[key] = encode(text).ids
+
+    return {
+        "tokenizer": tok,
+        "vocab_size": tok.get_vocab_size(),
+        "train_ids": train_ids,
+        "other_texts_ids": other_texts_ids,
+        "pad_id": pad_id,
+        "bos_id": bos_id,
+        "eos_id": eos_id,
+    }
 
 
 # region utils
@@ -232,6 +277,9 @@ def plot_heaps(N, V, K=None, beta=None, ax=None, title="Heaps' law"):
     return ax
 
 
+# region hparam search
+
+
 def fit_tokenizer_params(
     *,
     train_text_path: str,
@@ -272,7 +320,7 @@ def fit_tokenizer_params(
             min_frequency=min_frequency,
             lowercase=lowercase,
             add_prefix_space=add_prefix_space,
-            name=f"bpe_k{m}",
+            save_filename=f"bpe_{m}",
         )
 
         # encode without auto special tokens

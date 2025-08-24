@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 # region NGramEngine
 
@@ -99,6 +99,9 @@ class NGramEngine:
         Returns:
         - float: The probability of the n-gram query.
         """
+        if not self.fitted:
+            raise ValueError("ngram moodel must be fitted before calculating probabilities.")
+
         if n > self.n:
             raise ValueError(f"n ({n}) cannot be greater than the model's n ({self.n})")
 
