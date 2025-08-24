@@ -29,7 +29,7 @@ def train_bytelevel_bpe(
     min_frequency: int = 2,
     lowercase: bool = False,
     add_prefix_space: bool = True,
-    save_dir: str = "bpe_tok",
+    save_dir: str = "../bpe_tok",
     special_tokens: dict = SPECIAL_TOKENS,
     initial_alphabet: List[str] = ByteLevel.alphabet(),
     save_filename: str = None,

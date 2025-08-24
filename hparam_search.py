@@ -128,14 +128,14 @@ def hparams_search_nBigram(
             run_dir = os.path.join(base_cfg_train.log_dir, run_name)
             writer = SummaryWriter(log_dir=run_dir, flush_secs=5)
             # update model and train cfgs
-            cfg_model = ConfigNeuralBigram(
+            cfg_model = type(base_cfg_model)(
                 **{
                     **vars(base_cfg_model),
                     "vocab_size": vocab_sz,
                     "dropout": dropout,
                 }
             )
-            cfg_train = ConfigTrain(
+            cfg_train = type(base_cfg_train)(
                 **{
                     **vars(base_cfg_train),
                     "ckpt_best_filename": f"best_{run_name}.pt",
@@ -317,7 +317,7 @@ def hparams_search_GPT(
             run_dir = os.path.join(base_cfg_train.log_dir, run_name)
             writer = SummaryWriter(log_dir=run_dir, flush_secs=5)
             # update model and train cfgs
-            cfg_model = ConfigGPT(
+            cfg_model = type(base_cfg_model)(
                 **{
                     **vars(base_cfg_model),
                     "vocab_size": vocab_sz,
@@ -327,7 +327,7 @@ def hparams_search_GPT(
                     "dropout": dropout,
                 }
             )
-            cfg_train = ConfigTrain(
+            cfg_train = type(base_cfg_train)(
                 **{
                     **vars(base_cfg_train),
                     "ckpt_best_filename": f"best_{run_name}.pt",
