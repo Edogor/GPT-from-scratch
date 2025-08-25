@@ -1,2 +1,0 @@
-merges,lr,dropout,vocab_size,weight_decay,scheduler,val_ppl,train_ppl,val_loss,train_loss,epochs,ckpt_best,ckpt_last,full_config_file,run
-10,0.0003,0.0,270,0.0001,cosine_warmup,40.72248840332031,40.85444259643555,3.706780404133238,3.710015600760128,60,checkpoints/neural_bigram/hparams_search/hparams_search/best_hps_20250824-115038_0d3f467c.pt,checkpoints/neural_bigram/hparams_search/hparams_search/last_hps_20250824-115038_0d3f467c.pt,checkpoints/neural_bigram/hparams_search/hparams_search/hps_20250824-115038_0d3f467c_hparams.json,hps_20250824-115038_0d3f467c

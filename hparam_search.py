@@ -19,7 +19,7 @@ from train_mj import train, ConfigTrain
 from neural_bigram import NeuralBigram, ConfigNeuralBigram
 from GPT_mj import GPT, ConfigGPT
 from utils import WarmupThenCosine, init_dataloader, count_params
-from bpe_hf import train_and_encode_tokenizer, train_bytelevel_bpe, SPECIAL_TOKENS
+from bpe_hf import train_and_encode_tokenizer, train_bytelevel_bpe, TOK_SPECIAL_TOKENS, TOK_SAVE_DIR
 
 
 @dataclass
@@ -87,8 +87,9 @@ def hparams_search_nBigram(
     val_text_path: str,
     # tokenizer
     tokenizer_trainer: callable = train_bytelevel_bpe,  # train_bytelevel_bpe
-    special_tokens: dict = SPECIAL_TOKENS,
+    special_tokens: dict = TOK_SPECIAL_TOKENS,
     tok_min_frequency: int = 2,
+    tok_save_dir: str = TOK_SAVE_DIR,
     # data
     batch_size: int = 32,
     block_size: int = 128,
@@ -99,6 +100,7 @@ def hparams_search_nBigram(
 ):
     os.makedirs(base_cfg_train.log_dir, exist_ok=True)
     os.makedirs(base_cfg_train.ckpt_dir, exist_ok=True)
+    os.makedirs(tok_save_dir, exist_ok=True)
 
     total_runs = hp_space.num_total_combinations()
 
@@ -106,6 +108,8 @@ def hparams_search_nBigram(
     pbar_all = tqdm(total=total_runs, desc="HParams Search", leave=True, unit="trial")
 
     for merges in hp_space.merges:
+        # create unique tokenizer name per merges
+        tok_name = f"bpe_{merges}m_" + uuid.uuid4().hex[:8] + ".json"
         tok_info = train_and_encode_tokenizer(
             tokenizer_trainer=tokenizer_trainer,
             train_text_path=train_text_path,
@@ -113,6 +117,8 @@ def hparams_search_nBigram(
             merges=merges,
             min_frequency=tok_min_frequency,
             special_tokens=special_tokens,
+            save_dir=tok_save_dir,
+            save_filename=tok_name,
         )
         train_ids = tok_info["train_ids"]
         val_ids = tok_info["other_texts_ids"]["val"]
@@ -146,21 +152,24 @@ def hparams_search_nBigram(
 
             # build model
             model = NeuralBigram(cfg_model)
-            model.to(base_cfg_train.device)
+            model.to(cfg_train.device)
             # get model size
             model_size = count_params(model)
             # compile if possible
             try:
-                model.compile(mode="reduce-overhead")
+                if cfg_train.device == "cpu":
+                    model.compile(mode="reduce-overhead")
+                else:
+                    model.compile()
             except Exception as e:
                 print(f"Warning: model.compile() failed with error: {e}. Continuing without compilation.")
             # optimizer
             optimizer = AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
             # scheduler
-            total_steps = base_cfg_train.epochs * max(1, len(train_loader) // max(1, base_cfg_train.grad_accum_steps))
+            total_steps = cfg_train.epochs * max(1, len(train_loader) // max(1, cfg_train.grad_accum_steps))
             lr_scheduler = _safe_lr_sched(sched_name, optimizer, total_steps, eta_min)
             # scaler
-            scaler = GradScaler(enabled=base_cfg_train.use_amp)
+            scaler = GradScaler(enabled=cfg_train.use_amp)
 
             # train
             out = train(
@@ -187,6 +196,7 @@ def hparams_search_nBigram(
                     "n_merges": merges,
                     "min_frequency": tok_min_frequency,
                     "special_tokens": special_tokens,
+                    "path": os.path.join(tok_save_dir, tok_name),
                 },
                 "data": {
                     "batch_size": batch_size,
@@ -212,7 +222,7 @@ def hparams_search_nBigram(
                 "training": vars(cfg_train).copy(),
             }
 
-            full_config_file = os.path.join(base_cfg_train.ckpt_dir, f"{run_name}_hparams.json")
+            full_config_file = os.path.join(cfg_train.ckpt_dir, f"{run_name}_hparams.json")
             with open(full_config_file, "w") as f:
                 json.dump(hparams_json, f, indent=4)
 
@@ -276,8 +286,9 @@ def hparams_search_GPT(
     val_text_path: str,
     # tokenizer
     tokenizer_trainer: callable = train_bytelevel_bpe,  # train_bytelevel_bpe
-    special_tokens: dict = SPECIAL_TOKENS,
+    special_tokens: dict = TOK_SPECIAL_TOKENS,
     tok_min_frequency: int = 2,
+    tok_save_dir: str = TOK_SAVE_DIR,
     # data
     batch_size: int = 32,
     block_size: int = 128,
@@ -288,6 +299,7 @@ def hparams_search_GPT(
 ):
     os.makedirs(base_cfg_train.log_dir, exist_ok=True)
     os.makedirs(base_cfg_train.ckpt_dir, exist_ok=True)
+    os.makedirs(tok_save_dir, exist_ok=True)
 
     total_runs = hp_space.num_total_combinations()
 
@@ -295,6 +307,8 @@ def hparams_search_GPT(
     pbar_all = tqdm(total=total_runs, desc="HParams Search", leave=True, unit="trial")
 
     for merges in hp_space.merges:
+        # create unique tokenizer name per merges
+        tok_name = f"bpe_{merges}m_" + uuid.uuid4().hex[:8] + ".json"
         tok_info = train_and_encode_tokenizer(
             tokenizer_trainer=tokenizer_trainer,
             train_text_path=train_text_path,
@@ -302,6 +316,8 @@ def hparams_search_GPT(
             merges=merges,
             min_frequency=tok_min_frequency,
             special_tokens=special_tokens,
+            save_dir=tok_save_dir,
+            save_filename=tok_name,
         )
         train_ids = tok_info["train_ids"]
         val_ids = tok_info["other_texts_ids"]["val"]
@@ -344,22 +360,25 @@ def hparams_search_GPT(
             )
             # build model
             model = GPT(cfg_model)
-            model.to(base_cfg_train.device)
+            model.to(cfg_train.device)
             # get model size
             model_size = count_params(model)
             # compile if possible
             try:
-                model.compile(mode="reduce-overhead")
+                if cfg_train.device == "cpu":
+                    model.compile(mode="reduce-overhead")
+                else:
+                    model.compile()
             except Exception as e:
                 print(f"Warning: model.compile() failed with error: {e}. Continuing without compilation.")
 
             # optimizer
             optimizer = AdamW(model.parameters(), lr=lr, weight_decay=weight_decay)
             # scheduler
-            total_steps = base_cfg_train.epochs * max(1, len(train_loader) // max(1, base_cfg_train.grad_accum_steps))
+            total_steps = cfg_train.epochs * max(1, len(train_loader) // max(1, cfg_train.grad_accum_steps))
             lr_scheduler = _safe_lr_sched(sched_name, optimizer, total_steps, eta_min)
             # scaler
-            scaler = GradScaler(enabled=base_cfg_train.use_amp)
+            scaler = GradScaler(enabled=cfg_train.use_amp)
 
             # train
             out = train(
@@ -386,6 +405,7 @@ def hparams_search_GPT(
                     "n_merges": merges,
                     "min_frequency": tok_min_frequency,
                     "special_tokens": special_tokens,
+                    "path": os.path.join(tok_save_dir, tok_name),
                 },
                 "data": {
                     "batch_size": batch_size,
@@ -411,7 +431,7 @@ def hparams_search_GPT(
                 "training": vars(cfg_train).copy(),
             }
 
-            full_config_file = os.path.join(base_cfg_train.ckpt_dir, f"{run_name}_hparams.json")
+            full_config_file = os.path.join(cfg_train.ckpt_dir, f"{run_name}_hparams.json")
             with open(full_config_file, "w") as f:
                 json.dump(hparams_json, f, indent=4)
 

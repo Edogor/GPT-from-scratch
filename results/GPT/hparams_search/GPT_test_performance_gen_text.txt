@@ -2,44 +2,43 @@ Test performance of best models per merges from hparams search:
 test generation format:
 >>>> <context>
  --------------------
-<<<< <generated_text>========================================================================================================================
+<<<< <generated_text>
+========================================================================================================================
 
 merges=10, lr=3.000000e-04, dropout=0.2
 model parameters count: 1660814
-Test PPL: 17.45, val PPL: 17.65, train PPL: 24.61805725097656
+Test PPL: 5.66, val PPL: 6.01, train PPL: 6.363152027130127
 
 >>>> shall the lovers
 --------------------
-<<<<  bord all bltiy he ometh mong hog hat petofom uc ot
-T
+<<<< ,
+Is you me comptroformn, if wishout me.
+
+
+JELIIA
+'Take
 ------------------------------------------------------------------------------------------------------------------------
 merges=200, lr=3.000000e-04, dropout=0.2
 model parameters count: 1709644
-Test PPL: 99.25, val PPL: 103.20, train PPL: 151.0535430908203
+Test PPL: 16.28, val PPL: 18.44, train PPL: 19.58212661743164
 
 >>>> shall the lovers
 --------------------
-<<<< ,du ay maer
-PATiia mrarere.
-M
+<<<<  Vena,
+That is themble in this awar. Ary, go!
 
-ATOE
-CT, wy,Winnd,.EUCAWhedt
+
+EMILIAT
+By word, speak awert my l
 ------------------------------------------------------------------------------------------------------------------------
 merges=800, lr=3.000000e-04, dropout=0.2
-model parameters count: 682660
-Test PPL: 285.27, val PPL: 295.94, train PPL: 417.835205078125
+model parameters count: 1863844
+Test PPL: 31.35, val PPL: 34.80, train PPL: 34.2706184387207
 
 >>>> shall the lovers
 --------------------
-<<<<  to to in. a to
- thel
-s ofhe a andeTA a in;
-.e iny. to
-;T; to they of
-
-s;;.
-.
-?
- a;y
+<<<<  of his steked,
+Than the power the earthens and act and the valse,
+Dey-fazs togiveds: there hath teary
+B
 ------------------------------------------------------------------------------------------------------------------------
