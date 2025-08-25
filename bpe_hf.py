@@ -13,8 +13,8 @@ from functools import partial
 import os
 from typing import List, Callable, Dict, Any
 
-
-SPECIAL_TOKENS = {
+TOK_SAVE_DIR = "../bpe_tok"
+TOK_SPECIAL_TOKENS = {
     "pad": "<pad>",
     "unk": "<unk>",
     "bos": "<bos>",
@@ -29,8 +29,8 @@ def train_bytelevel_bpe(
     min_frequency: int = 2,
     lowercase: bool = False,
     add_prefix_space: bool = True,
-    save_dir: str = "bpe_tok",
-    special_tokens: dict = SPECIAL_TOKENS,
+    save_dir: str = TOK_SAVE_DIR,
+    special_tokens: dict = TOK_SPECIAL_TOKENS,
     initial_alphabet: List[str] = ByteLevel.alphabet(),
     save_filename: str = None,
 ) -> Tokenizer:
@@ -51,9 +51,9 @@ def train_bytelevel_bpe(
     Returns:
     - Trained Tokenizer instance.
     """
-    unk_token = special_tokens.get("unk", SPECIAL_TOKENS["unk"])
-    bos_token = special_tokens.get("bos", SPECIAL_TOKENS["bos"])
-    eos_token = special_tokens.get("eos", SPECIAL_TOKENS["eos"])
+    unk_token = special_tokens.get("unk", TOK_SPECIAL_TOKENS["unk"])
+    bos_token = special_tokens.get("bos", TOK_SPECIAL_TOKENS["bos"])
+    eos_token = special_tokens.get("eos", TOK_SPECIAL_TOKENS["eos"])
 
     # For byte-level BPE, base symbols = 256 bytes + special tokens
     base_vocab = 256 + len(special_tokens)
@@ -94,7 +94,7 @@ def train_bytelevel_bpe(
 
     if save_filename is not None:
         os.makedirs(save_dir, exist_ok=True)
-        path = os.path.join(save_dir, f"{save_filename}.json")
+        path = os.path.join(save_dir, f"{save_filename}")
         tok.save(path)
     return tok
 
@@ -127,9 +127,9 @@ def train_and_encode_tokenizer(
     )
     encode = partial(tok.encode, add_special_tokens=False)
 
-    pad_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("pad", "<pad>")
-    bos_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("bos", "<bos>")
-    eos_token = kwargs.get("special_tokens", SPECIAL_TOKENS).get("eos", "<eos>")
+    pad_token = kwargs.get("special_tokens", TOK_SPECIAL_TOKENS).get("pad", "<pad>")
+    bos_token = kwargs.get("special_tokens", TOK_SPECIAL_TOKENS).get("bos", "<bos>")
+    eos_token = kwargs.get("special_tokens", TOK_SPECIAL_TOKENS).get("eos", "<eos>")
     pad_id = tok.token_to_id(pad_token)
     bos_id = tok.token_to_id(bos_token)
     eos_id = tok.token_to_id(eos_token)
@@ -286,7 +286,7 @@ def fit_tokenizer_params(
     val_text_path: str,
     merges_grid=(100, 250, 500, 1000, 2000, 5000, 10000),
     tokenizer_trainer=None,
-    special_tokens: dict = SPECIAL_TOKENS,
+    special_tokens: dict = TOK_SPECIAL_TOKENS,
     min_frequency: int = 2,
     lowercase: bool = False,
     add_prefix_space: bool = True,

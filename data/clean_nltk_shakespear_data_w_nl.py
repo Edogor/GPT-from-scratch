@@ -5,6 +5,7 @@ from collections import defaultdict, Counter
 from tqdm import tqdm
 import random
 import pickle
+import os
 
 
 def extract_doc_text(text):
@@ -34,6 +35,9 @@ def split_on_spaces_only(s: str):
 
 
 if __name__ == "__main__":
+    DATA_DIR = "./data"
+    os.makedirs(DATA_DIR, exist_ok=True)
+
     nltk.download("shakespeare", quiet=True)
     docs = shakespeare.fileids()
     print("Available Shakespeare documents:", docs)
@@ -43,7 +47,7 @@ if __name__ == "__main__":
         text = get_shakespeare_doc_text(doc)
         corpus += text  # NEW: keep a newline between documents
 
-    with open("Shakespeare_clean_full.txt", "w") as text_file:
+    with open(os.path.join(DATA_DIR, "Shakespeare_clean_full.txt"), "w") as text_file:
         text_file.write(corpus)
 
     print("full_size: ", len(corpus))
@@ -81,13 +85,13 @@ if __name__ == "__main__":
         corpus = corpus.replace(sub_valid_text, "", 1)  # NEW: replace only first occurrence
 
     print("train_size: ", len(corpus))
-    with open("Shakespeare_clean_w_nl_train.txt", "w") as text_file:
+    with open(os.path.join(DATA_DIR, "Shakespeare_clean_w_nl_train.txt"), "w") as text_file:
         text_file.write(corpus)
 
     print("valid_size: ", len(valid_data))
-    with open("Shakespeare_clean_w_nl_valid.txt", "w") as text_file:
+    with open(os.path.join(DATA_DIR, "Shakespeare_clean_w_nl_valid.txt"), "w") as text_file:
         text_file.write(valid_data)
 
     print("test_size: ", len(test_data))
-    with open("Shakespeare_clean_w_nl_test.txt", "w") as text_file:
+    with open(os.path.join(DATA_DIR, "Shakespeare_clean_w_nl_test.txt"), "w") as text_file:
         text_file.write(test_data)

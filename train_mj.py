@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 from typing import Optional, Dict, Any
 import os
 from dataclasses import dataclass
-from utils import count_params, set_seed, save_checkpoint, load_checkpoint
+from utils import set_seed, save_checkpoint, load_checkpoint
 
 
 @dataclass
@@ -146,7 +146,7 @@ def train(
             print(f"Resumed from {resume_from} (epoch {start_epoch})")
 
     #### training loop ####
-    history = {"train_loss": [], "train_ppl": [], "val_ppl": [], "val_loss": []}
+    history = {"train_loss": [], "train_ppl": [], "val_ppl": [], "val_loss": [], "epoch": []}
     pbar_epoch = tqdm(
         range(start_epoch, cfg.epochs), total=cfg.epochs, desc="Training Progress", leave=True, disable=not show_pbar
     )
@@ -225,6 +225,7 @@ def train(
             history["train_ppl"].append(train_ppl)
             history["val_loss"].append(val_avg_loss)
             history["val_ppl"].append(val_ppl)
+            history["epoch"].append(epoch)
 
             if writer is not None:
                 writer.add_scalars(
