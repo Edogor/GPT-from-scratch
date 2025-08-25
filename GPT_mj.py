@@ -1,10 +1,10 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-
 from typing import Optional
 import math
 from dataclasses import dataclass
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 
 @dataclass
@@ -60,7 +60,7 @@ class CausalSelfAttention(nn.Module):
             ),
         )
 
-        self.flash_attn = hasattr(torch.nn.functional, "scaled_dot_product_attention")
+        self.flash_attn = hasattr(F, "scaled_dot_product_attention")
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         B, T, C = x.size()

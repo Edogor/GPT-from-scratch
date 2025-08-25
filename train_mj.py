@@ -11,7 +11,7 @@ from tqdm.auto import tqdm
 from typing import Optional, Dict, Any
 import os
 from dataclasses import dataclass
-from utils import count_params, set_seed, save_checkpoint, load_checkpoint
+from utils import set_seed, save_checkpoint, load_checkpoint
 
 
 @dataclass

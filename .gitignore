@@ -83,3 +83,6 @@ docs/reference/
 .ipynb_checkpoints
 # IDE-specific directories
 .idea
+.vscode
+*.sublime-project
+*.sublime-workspace

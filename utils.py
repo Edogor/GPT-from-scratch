@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch.optim.lr_scheduler import LRScheduler
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from torch.utils.data import Dataset, DataLoader
 import os
@@ -53,7 +54,7 @@ def init_dataloader(data_ids, block_size=128, batch_size=64, train=True, shuffle
     return train_loader
 
 
-class WarmupThenCosine(torch.optim.lr_scheduler._LRScheduler):
+class WarmupThenCosine(LRScheduler):
     def __init__(self, optimizer, warmup_steps, T_max, last_epoch=-1, eta_min=0.0):
         self.warmup_steps = max(0, warmup_steps)
         self.T_max = T_max

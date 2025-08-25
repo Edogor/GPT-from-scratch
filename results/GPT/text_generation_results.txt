@@ -1,0 +1,84 @@
+used tokenizer: bytelevel_bpe, merges: 200, min_freq: 2
+>>>> <context>
+--------------------
+<<<< <generated_text>
+
+--------------------------------------------------------------------------------
+>>>>  shall the lovers
+--------------------
+<<<< , and
+I pray the cannot true intal confer us?
+It is, takes to the scorns, and soldier.
+
+
+
+QUO
+CUEAlcome, was a poor why?
+
+
+First Clown
+Pince, when them; say is good a
+
+--------------------------------------------------------------------------------
+>>>> UCK
+M
+--------------------
+<<<< ELAERIO
+How now, she wherefore is no part, for it or would more,
+most keep the did swords, and I have dream myself
+catings on himself, in this at
+broughter'd as their excrius.
+
+
+
+SALMPSON
+
+--------------------------------------------------------------------------------
+>>>> s all,
+T
+--------------------
+<<<< his lave you, I must be fore;
+But I have my fear him a pring,
+Hath to be both us indeed with thee.
+
+
+JULIET
+Br, here, my lord, she should hence, awert of watch,
+Have the follow the friends and be
+
+--------------------------------------------------------------------------------
+>>>> ON
+But we
+--------------------
+<<<<  words? I cannot,
+For were, for a day so.
+
+
+
+LUCILIUS
+I shall be madam; here concaster about of the play,
+To first the moons of the sleepon,
+Such tach upon the very blood, I do much
+
+--------------------------------------------------------------------------------
+>>>>  salt gre
+--------------------
+<<<< at action. What, he should have?
+
+
+
+ROMEO
+In such a man.
+
+
+
+SALERTES
+O, lord, he is, I could not:
+sall you are there?
+
+
+DESDEMONA
+I dare not go: my satisters of waw?
+
+
+O
