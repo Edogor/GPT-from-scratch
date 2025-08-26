@@ -1,4 +1,4 @@
-used tokenizer: bytelevel_bpe, merges: 200, min_freq: 2
+used tokenizer: bytelevel_bpe, merges: 800, min_freq: 2
 >>>> <context>
 --------------------
 <<<< <generated_text>
@@ -6,100 +6,118 @@ used tokenizer: bytelevel_bpe, merges: 200, min_freq: 2
 --------------------------------------------------------------------------------
 >>>>  shall the lovers
 --------------------
-<<<<  to hat thou sorrindys.
-Tond comment of my fook
-
-
-TONIUS City, arook;
-Wherefired their; forbithen I'lly smigh I will,--and day to imand; the mod burse
-
-HAnd bumans;
+<<<< ,
 
 
 
-LL
+LORDUFor,
 
---------------------------------------------------------------------------------
->>>> UCK
-M
---------------------
-<<<< ake me, swar: IIning bets of Cit, and ener:
 
-HARK
-Weemons the say
-Hach I am, ambbal, and
+SALThe cast, I had a bad I, and a cruited,
 
-Thy timppirstertond, and the per,
-By wif thou haze:
-LOnce!
-But, get
-CEL
+
+
+
+O'er's no litthen'd the mark thee, sir.
+
+MIA
+Withiness is
+What they are well,
+For!
+
+
+Thereason hellocre you,
+
+
+Th,
 
 --------------------------------------------------------------------------------
->>>> s all,
-T
+>>>> t dragon
 --------------------
-<<<< hence,
-F
+<<<< ybs to-s
+Even,
+Then'd infort.
+TERO,
+
+PRUF Ver'stherence.
+
+CK ANTONY
+
+As to wanted for accumber,
+
+To, I am I see thee,
+Go you. O thou hasty.
 
 
-F
-SCO
-A
-GOThs to him? the if I has
-ASENESCButushommpod;
+BRUTUS
 
-
-ACENCDIUS
-
-Theres
-MLET
-IAnd intend me.
-
-
-
-
-Good
-TIO
-The didewncell of ous,
+Thy, bearlield.'?
+Till
 
 --------------------------------------------------------------------------------
->>>> ON
-But we
+>>>>  should look their sham
 --------------------
-<<<< 'll mar:
+<<<< ed; and that welay, in the giet, my love?
 
-ILO,
-But low?
+BENCELOfory;
+But of changards!
 
-Why.
+LAUNot.
+Enter Leps;
 
-DERONIO
-Beetway, you are.
-
-
-TUS
+Enter ROMEO another?
+Which strait
 
 
 
-
-
-CASDOfold.
-DENCLLive amont, and friended with you,
-
-CHIth,
-DEROS
-
-Good chere
+We, a talk of my he'sthenove it was
+Who's house look you?
+Proden
 
 --------------------------------------------------------------------------------
->>>>  salt gre
+>>>> ing on Nept
 --------------------
-<<<< , my from then theneredeacaprofies, VIUS, hive
-Forldizenccopo, spect: speth a gove.
-Heet me to didere.
-ROPIfore,
-N
+<<<< s: the sight?
 
-What's fook one, I plow, moneaway.
-T
+LORDENCE
+
+
+
+
+Withinessen,
+And what hath gotecond Pys only
+
+
+I. Murge of my hearts, as I am fight in that do I, my bes, but in the sumer.
+Youble.
+What, if you have foul matter'd, my heart
+
+Foryoughted
+
+--------------------------------------------------------------------------------
+>>>> , lead them up
+--------------------
+<<<< !
+Sogue, I seems, and to beho is a foul
+First by his same
+Re, my lord,
+Ours to make mone.
+
+O'?
+
+
+
+ASSANIO
+
+HYou art thou do't that heard
+PS
+ASALANIO
+Andey.
+
+
+LUS
+
+
+RUK ANTONY
+HAMLET
+DOLMess

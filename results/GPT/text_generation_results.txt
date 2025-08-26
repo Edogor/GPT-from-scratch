@@ -1,4 +1,4 @@
-used tokenizer: bytelevel_bpe, merges: 200, min_freq: 2
+used tokenizer: bytelevel_bpe, merges: 800, min_freq: 2
 >>>> <context>
 --------------------
 <<<< <generated_text>
@@ -9,87 +9,95 @@ used tokenizer: bytelevel_bpe, merges: 200, min_freq: 2
 <<<< .
 
 
-LADY MACBETH
-My son.
 
-
-
-HAMLET
-Your is noby to be sword?
-
-
-
-HAMLET
-Drushing too, you did me; here to enough he met;
-I take then I damning to give.
+RINCE
+You have not still I have you,
+I'll be the die.
 
 
 IAGO
-The
+I will to tell me, you, sir, sir, I should have it.
+
+
+
+IAGO
+A power for it were the burn.
+
+
+
+DOMITIUS ENOBARBUS
+Go, sir.
+
+
+
+ROMEO
+As, that say, you do not tell
 
 --------------------------------------------------------------------------------
->>>> UCK
+>>>> t dragon
+--------------------
+<<<< s:
+Than be in the furt
+If to accenter thank
+
+
+CASSIUS
+As in the wovermy, I shall tell my
+There is set, that they do.
+
+
+
+DOLASCK
+You have sight not, he not.
+
+
+ROSENCRANTZ
+In your father's a dareds?
+
+
+--------------------------------------------------------------------------------
+>>>>  should look their sham
+--------------------
+<<<< e;
+This is it is burns and curch of truth,
+And borning on his reads, and all this sound:
+The touch me in her fools of the else,
+Lets heardons in crake
+Till we are fanch to his guards; and then I
+Not it to his curcy,
+F
+
+--------------------------------------------------------------------------------
+>>>> ing on Nept
+--------------------
+<<<< rongue.
+
+
+HAMLET
+They, you have been so: yet
+And the seen the tram of your till of your faith and long?
+
+
+HAMLET
+Why he is my carcle?
+
+
+ROMEO
+Make you, if I am he
+If we do not being of your grave;
+That, sir, I have the doubt:
+
+--------------------------------------------------------------------------------
+>>>> , lead them up
+--------------------
+<<<< 
+Ours are as they are crence.
+Thor, then, good lord: let me go:
+I will reason to his own told my still
+To tale; I am to-fight. But, you, as thou see my good?
+
+
+QUEEN GERTRUDE
+Look I will be not to you shall know
+Beed in the master's chile:
 M
---------------------
-<<<< adam?
-
-
-
-HAMLET
-As it be done?
-
-
-
-IAGO
-Well, go, mark,
-To have a tears for swall'd; and my soul of foul,
-And mind out speeps could be bid my presently,
-And the gold, to
-
---------------------------------------------------------------------------------
->>>> s all,
-T
---------------------
-<<<< o woman sweet with the friend rather, hors,
-And what poorpertion, with the grows?
-
-
-
-DEMONA
-My lord?
-
-
-ECLLOTRA
-Do not so?
-
-
-ESDEMONA
-Two what sorth said, and a
-
---------------------------------------------------------------------------------
->>>> ON
-But we
---------------------
-<<<<  fight, what I know you are better, or no bled,
-Than foother's house of very chaty
-To temph. Come, that flight and comporness
-Here would have must be again; but let me passion.
-
-
-
-PORTIA
-But
-
---------------------------------------------------------------------------------
->>>>  salt gre
---------------------
-<<<< ath to beard:
-For I will have spove you she which till he did the men.
-
-
-
-First Soldier
-These spirr
-Clowns, sir, get himself; let me to come
-Upon the childre, Jew rus: there shall he
-And
