@@ -27,6 +27,8 @@ TODO:
  - put results here and briefly describe them. 
 ... 
 
-
+example: <br>
+GPT training curves: <br>
+![GPT training curves](./results/GPT/GPT_training_plot.png) <br>
 
 
