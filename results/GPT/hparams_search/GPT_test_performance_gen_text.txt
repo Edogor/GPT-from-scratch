@@ -11,12 +11,9 @@ Test PPL: 5.66, val PPL: 6.01, train PPL: 6.363152027130127
 
 >>>> shall the lovers
 --------------------
-<<<< ,
-Is you me comptroformn, if wishout me.
-
-
-JELIIA
-'Take
+<<<< ;
+Flew ladin to thou ciness!
+What the apparicy crive to me; w
 ------------------------------------------------------------------------------------------------------------------------
 merges=200, lr=3.000000e-04, dropout=0.2
 model parameters count: 1709644
@@ -24,12 +21,16 @@ Test PPL: 16.28, val PPL: 18.44, train PPL: 19.58212661743164
 
 >>>> shall the lovers
 --------------------
-<<<<  Vena,
-That is themble in this awar. Ary, go!
+<<<< 
+To breaks hear, at me.
 
 
-EMILIAT
-By word, speak awert my l
+The witch
+
+
+POM
+Alavius
+Plasuny of friediending
 ------------------------------------------------------------------------------------------------------------------------
 merges=800, lr=3.000000e-04, dropout=0.2
 model parameters count: 1863844
@@ -37,8 +38,9 @@ Test PPL: 31.35, val PPL: 34.80, train PPL: 34.2706184387207
 
 >>>> shall the lovers
 --------------------
-<<<<  of his steked,
-Than the power the earthens and act and the valse,
-Dey-fazs togiveds: there hath teary
-B
+<<<< ,
+To fattle power and banse: and we shall buage
+Sor it not silted, inded
+As I will see the fire the first
+Un bro
 ------------------------------------------------------------------------------------------------------------------------

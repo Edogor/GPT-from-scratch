@@ -108,6 +108,7 @@ def train_and_encode_tokenizer(
     tokenizer_trainer,  # e.g. train_bytelevel_bpe
     train_text_path: str,
     other_texts_paths: dict[str:str] = None,
+    merges: int = 200,
     **kwargs,
 ) -> Dict[str, Any]:
 
@@ -123,6 +124,7 @@ def train_and_encode_tokenizer(
 
     tok = tokenizer_trainer(
         files=[train_text_path],
+        merges=merges,
         **kwargs,
     )
     encode = partial(tok.encode, add_special_tokens=False)

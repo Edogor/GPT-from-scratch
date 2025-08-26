@@ -202,7 +202,7 @@ def hparams_search_nBigram(
                     "batch_size": batch_size,
                     "block_size": block_size,
                 },
-                "model": {**vars(cfg_model), "model_size": model_size},
+                "model": {"cfg": vars(cfg_model), "model_size": model_size},
                 "optimizer": {
                     "type": optimizer.__class__.__name__,
                     "lr": lr,
@@ -219,7 +219,7 @@ def hparams_search_nBigram(
                     "enabled": scaler.is_enabled(),
                     "state_dict": scaler.state_dict(),
                 },
-                "training": vars(cfg_train).copy(),
+                "training": {"cfg": vars(cfg_train).copy()},
             }
 
             full_config_file = os.path.join(cfg_train.ckpt_dir, f"{run_name}_hparams.json")
@@ -411,7 +411,7 @@ def hparams_search_GPT(
                     "batch_size": batch_size,
                     "block_size": block_size,
                 },
-                "model": {**vars(cfg_model).copy(), "model_size": model_size},
+                "model": {"cfg": vars(cfg_model).copy(), "model_size": model_size},
                 "optimizer": {
                     "type": optimizer.__class__.__name__,
                     "lr": lr,
@@ -428,7 +428,7 @@ def hparams_search_GPT(
                     "enabled": scaler.is_enabled(),
                     "state_dict": scaler.state_dict(),
                 },
-                "training": vars(cfg_train).copy(),
+                "training": {"cfg": vars(cfg_train).copy()},
             }
 
             full_config_file = os.path.join(cfg_train.ckpt_dir, f"{run_name}_hparams.json")
