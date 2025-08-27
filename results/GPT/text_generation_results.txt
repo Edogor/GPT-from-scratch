@@ -10,94 +10,101 @@ used tokenizer: bytelevel_bpe, merges: 800, min_freq: 2
 
 
 
-RINCE
-You have not still I have you,
-I'll be the die.
-
-
-IAGO
-I will to tell me, you, sir, sir, I should have it.
+First Citizen
+O, my lord!
 
 
 
-IAGO
-A power for it were the burn.
+CThether you?
+
+First Witch
+You may the tradies?
 
 
 
-DOMITIUS ENOBARBUS
-Go, sir.
+MACBETH
+If you?
 
 
+CBETH
+Ay, what'st, I have it will; I may
+aesar will do soldier to know. I, I
 
-ROMEO
-As, that say, you do not tell
+
+CASSIUS
+
 
 --------------------------------------------------------------------------------
 >>>> t dragon
 --------------------
-<<<< s:
-Than be in the furt
-If to accenter thank
+<<<< !
 
 
-CASSIUS
-As in the wovermy, I shall tell my
-There is set, that they do.
-
-
-
-DOLASCK
-You have sight not, he not.
-
-
-ROSENCRANTZ
-In your father's a dareds?
-
+MIAGO
+Stay, I'll be the wised,
+And for a mother's cratisonum:
+There they have apposal, as to his hours,
+And sick-s the crike's drike
+Of pal and the praility
+With his chens, the money,
+The fict of
 
 --------------------------------------------------------------------------------
 >>>>  should look their sham
 --------------------
-<<<< e;
-This is it is burns and curch of truth,
-And borning on his reads, and all this sound:
-The touch me in her fools of the else,
-Lets heardons in crake
-Till we are fanch to his guards; and then I
-Not it to his curcy,
-F
+<<<< e?
+
+
+
+Second Soldier
+Thy body, and the fitions with melse of his bad
+As the turns of the free, ass.
+
+
+MARK ANTONY
+Madam is not yet I beast.
+
+
+
+MARK ANTONY
+Nor that I'll why.
+
+
+OPORTIA
+Thou art thou dost not god
 
 --------------------------------------------------------------------------------
 >>>> ing on Nept
 --------------------
-<<<< rongue.
+<<<< heder in my
+Then, and walk the murderal
+What'st a master of the world?
 
 
-HAMLET
-They, you have been so: yet
-And the seen the tram of your till of your faith and long?
-
-
-HAMLET
-Why he is my carcle?
-
-
-ROMEO
-Make you, if I am he
-If we do not being of your grave;
-That, sir, I have the doubt:
+Second Cona, youth and the
+And then we will retraffic; the musines;
+Lixts the gunded, and the sicken
+And being, and his greying of first
+Shall I
 
 --------------------------------------------------------------------------------
 >>>> , lead them up
 --------------------
-<<<< 
-Ours are as they are crence.
-Thor, then, good lord: let me go:
-I will reason to his own told my still
-To tale; I am to-fight. But, you, as thou see my good?
+<<<< ,
+The ere's in the vieps
+There are first indeit of my hearts.
 
 
-QUEEN GERTRUDE
-Look I will be not to you shall know
-Beed in the master's chile:
-M
+RODERWould you say, and, my lord?
+
+
+HAMLET
+Cle.
+
+
+My lord, then, sir, my lord?
+
+
+LYSANDER
+Nor, sir, I will I'll not be,
+I have act, and the cry for't,

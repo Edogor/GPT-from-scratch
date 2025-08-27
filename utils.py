@@ -29,10 +29,10 @@ class TextDataset(Dataset):
 def init_dataloader(data_ids, block_size=128, batch_size=64, train=True, shuffle=True, **kwargs):
     train_dataset = TextDataset(data_ids, block_size)
     if torch.cuda.is_available():
-        num_workers = kwargs.get("num_workers", 4)
+        num_workers = kwargs.get("num_workers", 2)
         persistent_workers = kwargs.get("persistent_workers", True)
         pin_memory = kwargs.get("pin_memory", True)
-        prefetch_factor = kwargs.get("prefetch_factor", 2)
+        prefetch_factor = kwargs.get("prefe     tch_factor", 2)
     else:
         num_workers = 0
         persistent_workers = False

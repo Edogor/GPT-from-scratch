@@ -1,0 +1,40 @@
+Test performance of best models per merges from hparams search:
+test generation format:
+>>>> <context>
+ --------------------
+<<<< <generated_text>
+========================================================================================================================
+
+merges=200, lr=3.000000e-04, dropout=0.2
+model parameters count: 6564096
+Test PPL: 9.62, val PPL: 11.10, train PPL: 11.244375228881836
+
+>>>> shall the lovers
+--------------------
+<<<<  fool at thy witer,
+What between her built alies?
+
+
+
+BRUTUS
+But not what do you away?
+
+------------------------------------------------------------------------------------------------------------------------
+merges=800, lr=3.000000e-04, dropout=0.2
+model parameters count: 6871296
+Test PPL: 18.29, val PPL: 22.01, train PPL: 20.74727439880371
+
+>>>> shall the lovers
+--------------------
+<<<< 
+The treases.
+
+
+
+All
+Raning is the full of thried;
+Make me, that thou art not,
+I will be serve for hers.
+
+
+------------------------------------------------------------------------------------------------------------------------
