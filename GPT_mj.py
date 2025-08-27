@@ -89,7 +89,8 @@ class CausalSelfAttention(nn.Module):
                 v,
                 dropout_p=self.dropout if self.training else 0.0,
                 is_causal=True,
-                # attn_mask=self.mask[:, :, :T, :T],
+                attn_mask=None,
+                # attn_mask=aff.masked_fill(self.mask[:, :, :T, :T] == 0, 0, dtype=torch.bool),
             )
         else:
             # compute affinity matrix with scaled dot-product attention from original transformer paper
