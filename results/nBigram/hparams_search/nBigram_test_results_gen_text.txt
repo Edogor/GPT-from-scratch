@@ -7,37 +7,61 @@ test generation format:
 
 merges=10, lr=3.000000e-02, dropout=0.0
 model parameters count: 72900
-Test PPL: 13.79, val PPL: 14.04, train PPL: 14.06379222869873
+Test PPL: 13.78, val PPL: 14.25, train PPL: 14.040437698364258
 
 >>>> shall the lovers
 --------------------
-<<<< ;
-AGorsaly whit as matupom thute oncheados
-Bet widime wil
+<<<< el ndy I ue g idir d shaingrainthes ighis ingadalinn me, 
+------------------------------------------------------------------------------------------------------------------------
+merges=50, lr=3.000000e-02, dropout=0.0
+model parameters count: 96100
+Test PPL: 19.60, val PPL: 20.79, train PPL: 20.29773330688477
+
+>>>> shall the lovers
+--------------------
+<<<< s,
+Ifor ass a meneadas.
+
+The wit, lirigerad O muntaviem, I seli
 ------------------------------------------------------------------------------------------------------------------------
 merges=200, lr=3.000000e-02, dropout=0.0
 model parameters count: 211600
-Test PPL: 28.30, val PPL: 29.54, train PPL: 28.25692749023437
+Test PPL: 27.11, val PPL: 31.04, train PPL: 28.08870887756348
 
 >>>> shall the lovers
 --------------------
-<<<< esarratuereffess, that you molapet it be bres,
-
-Fortle:
-ADYouris,
-Off; and clf, you
+<<<<  and my luevery come to dry of again
+CAses the sou are cossiod awns
+LLook, and dot,
+AC
 ------------------------------------------------------------------------------------------------------------------------
 merges=800, lr=3.000000e-02, dropout=0.0
 model parameters count: 1123600
-Test PPL: 45.18, val PPL: 43.60, train PPL: 32.34161758422852
+Test PPL: 33.15, val PPL: 46.22, train PPL: 31.9905948638916
 
 >>>> shall the lovers
 --------------------
-<<<<  of his
-Heel, as I see me with a mother.
-Hath Sirs
-Swards
-MARK
-Madness' the litch of the wience of
-CENE I
+<<<<  the glessench'd
+We of this?
+BENCE
+HARI will beaster
+Noor, sir;
+They, to being without his own hazooths of
+------------------------------------------------------------------------------------------------------------------------
+merges=1200, lr=3.000000e-02, dropout=0.0
+model parameters count: 2131600
+Test PPL: 34.41, val PPL: 54.00, train PPL: 32.04591751098633
+
+>>>> shall the lovers
+--------------------
+<<<< ,
+Which was the matter in a pale.
+
+
+OPHELIAGO
+CENE II.
+LEOPATRA
+Yours
+Who churp of a past, but
+That he is your
 ------------------------------------------------------------------------------------------------------------------------

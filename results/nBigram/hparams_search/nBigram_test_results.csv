@@ -1,4 +1,26 @@
-merges,lr,dropout,train_ppl,val_ppl,test_ppl
-10,0.03,0.0,14.06379222869873,14.04423713684082,13.789207196798607
-200,0.03,0.0,28.25692749023437,29.54395866394043,28.304623775518685
-800,0.03,0.0,32.34161758422852,43.59867477416992,45.176442922604295
+test_ppl,val_ppl,train_ppl,merges,lr,dropout,model_size,test_loss,weight_decay,scheduler,vocab_size,val_loss,train_loss,epochs,ckpt_best,ckpt_last,full_config_file,run,run_name,ckpt_path,generated_text_sample,context
+13.77912184848452,14.25053596496582,14.040437698364258,10,0.03,0.0,72900,2.62315453702982,0.0001,cosine_warmup,270,2.656949472617343,2.641941538308968,60,../checkpoints/nBigram/hparams_search/best_hps_250827_192408_d001ea3c.pt,../checkpoints/nBigram/hparams_search/last_hps_250827_192408_d001ea3c.pt,../checkpoints/nBigram/hparams_search/hps_250827_192408_d001ea3c_hparams.json,hps_250827_192408_d001ea3c,hps_250827_192408_d001ea3c,../checkpoints/nBigram/hparams_search/best_hps_250827_192408_d001ea3c.pt,"el ndy I ue g idir d shaingrainthes ighis ingadalinn me, ",shall the lovers
+19.603897180132087,20.78940200805664,20.29773330688477,50,0.03,0.0,96100,2.9757283821922944,0.0001,cosine_warmup,310,3.0346750161343348,3.0105092346571007,60,../checkpoints/nBigram/hparams_search/best_hps_250827_193034_b1a0d2d2.pt,../checkpoints/nBigram/hparams_search/last_hps_250827_193034_b1a0d2d2.pt,../checkpoints/nBigram/hparams_search/hps_250827_193034_b1a0d2d2_hparams.json,hps_250827_193034_b1a0d2d2,hps_250827_193034_b1a0d2d2,../checkpoints/nBigram/hparams_search/best_hps_250827_193034_b1a0d2d2.pt,"s,
+Ifor ass a meneadas.
+
+The wit, lirigerad O muntaviem, I seli",shall the lovers
+27.10644507563529,31.037220001220703,28.08870887756348,200,0.03,0.0,211600,3.2997715252788127,0.0001,cosine_warmup,460,3.442939466731564,3.335367756826626,60,../checkpoints/nBigram/hparams_search/best_hps_250827_193551_bc63915a.pt,../checkpoints/nBigram/hparams_search/last_hps_250827_193551_bc63915a.pt,../checkpoints/nBigram/hparams_search/hps_250827_193551_bc63915a_hparams.json,hps_250827_193551_bc63915a,hps_250827_193551_bc63915a,../checkpoints/nBigram/hparams_search/best_hps_250827_193551_bc63915a.pt," and my luevery come to dry of again
+CAses the sou are cossiod awns
+LLook, and dot,
+AC",shall the lovers
+33.15202183695927,46.21515274047852,31.9905948638916,800,0.03,0.0,1123600,3.501103705328864,0.0001,cosine_warmup,1060,3.9335387283611554,3.4654418909601525,60,../checkpoints/nBigram/hparams_search/best_hps_250827_193955_3afb8909.pt,../checkpoints/nBigram/hparams_search/last_hps_250827_193955_3afb8909.pt,../checkpoints/nBigram/hparams_search/hps_250827_193955_3afb8909_hparams.json,hps_250827_193955_3afb8909,hps_250827_193955_3afb8909,../checkpoints/nBigram/hparams_search/last_hps_250827_193955_3afb8909.pt," the glessench'd
+We of this?
+BENCE
+HARI will beaster
+Noor, sir;
+They, to being without his own hazooths of",shall the lovers
+34.411690198295425,53.99893569946289,32.04591751098633,1200,0.03,0.0,2131600,3.5383963379955565,0.0001,cosine_warmup,1460,4.139672943377563,3.4671696726026178,60,../checkpoints/nBigram/hparams_search/best_hps_250827_194338_927efebb.pt,../checkpoints/nBigram/hparams_search/last_hps_250827_194338_927efebb.pt,../checkpoints/nBigram/hparams_search/hps_250827_194338_927efebb_hparams.json,hps_250827_194338_927efebb,hps_250827_194338_927efebb,../checkpoints/nBigram/hparams_search/last_hps_250827_194338_927efebb.pt,",
+Which was the matter in a pale.
+
+
+OPHELIAGO
+CENE II.
+LEOPATRA
+Yours
+Who churp of a past, but
+That he is your",shall the lovers

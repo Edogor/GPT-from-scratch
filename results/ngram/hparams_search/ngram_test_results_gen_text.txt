@@ -5,55 +5,278 @@ Context for generated samples:
 
 Generated sample text for merges=10, n=9, lambdas=[4.86096755343087e-13, 1.2145682534890126e-07, 0.395012480584409, 0.6049650167310052, 2.2381225214762002e-05, 6.010058665271983e-13, 4.86096755343087e-13, 4.86096755343087e-13, 4.86096755343087e-13]:
 
-<<<< ?
-Antony with tim.
-Marchoice,
-Alare I'll drance,
-Andeed prime
+<<<< ;
+I having Iager, where upong:ixtualm about on.
 
 
-Meeds affore me, I drophese?
-An now, with 
+
+HAMLET
+And mind ned beaugh?k-lorror, mother Cawdreat;
+Thens
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=50, n=9, lambdas=[4.860967439855014e-13, 0.02798850125058462, 0.9344062096530016, 0.037605289055952375, 3.80309544765453e-11, 4.860967439855014e-13, 4.860967439855014e-13, 4.860967439855014e-13, 4.860967439855014e-13]:
+
+<<<<  for our limed: come two sims, but not, golutim:
+In long. I ton.
+
+
+
+
+
+
+And way a sky her tradam, a remant
+
+
+
+Exed wath.
+
+
+
+RO
+We
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=100, n=8, lambdas=[4.860967395021982e-13, 0.23713106106689003, 0.7628565840948097, 1.2354723564246475e-05, 1.1279157137272483e-10, 4.860967395021982e-13, 4.860967395021982e-13, 4.860967395021982e-13]:
+
+<<<< , your fan's or dif awrince you with us enft the came.
+
+Eitch
+
+
+
+
+Their much are the courther.
+
+Let ey comfor know the know; bod sunbs, or juck! why do so:
 ------------------------------------------------------------------------------------------------------------------------
 Generated sample text for merges=200, n=9, lambdas=[2.7237936734416403e-11, 0.5409290706565938, 0.4590663120050243, 4.607966075760102e-06, 8.9773259797369e-09, 3.204299364897749e-10, 3.482402351167702e-11, 8.831066072840712e-12, 3.657244686642602e-12]:
 
-<<<<  Sce Yound,
-And their cou know, I cangain, I dice,
-BERCAPULET
-MItulavene of my chan that the from the take theyes; and eart.
+<<<< raould Thereatter,
+Is't, what wif we do plabove it is nobleeft
 
 
+MACDIUS
+NTh of the bos
 
 
-Exe to be satter;
-Faphount all my let,
-But to be a riev
+Let. DOPH
+Was aforce, a going the war the dicust bedguereathy blause.
+
+
+H
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=500, n=9, lambdas=[4.860967218602817e-13, 0.9855781299295299, 0.014421870067067367, 4.860967218602817e-13, 4.860967218602817e-13, 4.860967218602817e-13, 4.860967218602817e-13, 4.860967218602817e-13, 4.860967218602817e-13]:
+
+<<<< P de to-hes, forgrerments, and he is sl,
+
+And in her
+As,
+
+Mofervy,
+
+
+Nay
+
+
+A
+
+
+CExicervish your betses in my sle.
+I'll have heards of her gious sermpercom in yours
+LORDoy, sir
 ------------------------------------------------------------------------------------------------------------------------
 Generated sample text for merges=800, n=9, lambdas=[2.58150917350963e-07, 0.999986192276701, 1.3549276304785108e-05, 2.8876825135847974e-10, 5.3641186732821446e-12, 4.860967205193641e-13, 4.860967205193641e-13, 4.860967205193641e-13, 4.860967205193641e-13]:
 
-<<<<  bese Wheo be senter. If welieceiveder
+<<<<  standrutBARBUSoice indeedside, sir, I will you not the
 
+TANO
 
-And in that we may be,
+Why banciether:
+Good of accuke to make me,
 
-Servant
+SALAR LAURUn'd:
+ICENE I.
 
-
-Ifabinion,
-
-
-
-
-
-
-Thange thee?
-BRUTUS
-H
-Thisonst your dutio is a turn.
-SCOrongue on your corattle;
+Enter ROMEO!
+F
 
 
 
-What you, and
-C
+
+
+
+
+Musty;
+
+
+ROMITIUS ENOBARBUS
+
+
+
+Youble,
+Al
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=1000, n=9, lambdas=[0.00010107744126749903, 0.9998988867179678, 3.5837848180818205e-08, 4.860967159602891e-13, 4.860967159602891e-13, 4.860967159602891e-13, 4.860967159602891e-13, 4.860967159602891e-13, 4.860967159602891e-13]:
+
+<<<<  followem CLIs and the
+
+ROMPORTIA
+Which you in
+
+
+Weremorrow,
+
+
+Wholdrough, I have no man and the banecond MESDEMONAnd to behisit
+
+
+AButens,
+Ay,
+G SInsel'd;
+Ourder,
+
+CLet, and his darewell, I.
+Not
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=1200, n=9, lambdas=[0.012423938886292351, 0.987573107882572, 2.951639542490385e-06, 1.4617901807678363e-09, 1.1611652539815588e-10, 1.1456796275001478e-11, 1.2413631099394209e-12, 5.019413679850543e-13, 4.860967140223948e-13]:
+
+<<<<  might say Messenger Than a wishonaves not, that you and the king, you,
+
+
+Good minutter in my father gristin
+And the walk the fit
+Or else:
+
+
+Enter KING the while?
+
+And let him,
+For,
+
+Bying in the field to the struction,
+Will doctawdigion.
+
+L
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=2000, n=9, lambdas=[0.12405072932688518, 0.8759438631357176, 5.390821160678796e-06, 1.4069242597520307e-08, 2.2338363427212394e-09, 3.2462079802980256e-10, 4.9764638204199066e-11, 2.393606664068219e-11, 1.4836021342472443e-11]:
+
+<<<< entleert bear bese: 'tis
+
+
+
+
+Ofully, I will make in
+Howers; I'll not so. You
+
+
+
+
+Allo not a word? and by the world I am,
+PEY
+My, that you, for your lord of my sword
+This
+
+By, my
+Gobra
+And,
+
+
+LORDe-enter.
+Hover
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=5000, n=9, lambdas=[0.34551762056044144, 0.6544763843329884, 5.9766588669137634e-06, 1.507200817493355e-08, 2.883586758607672e-09, 3.999135241442686e-10, 5.42808338423525e-11, 2.3554778142219555e-11, 1.4358981104835471e-11]:
+
+<<<<  hanged forfeit success MERC2,.
+
+HAMLET
+
+
+A and,
+H.
+Enter:
+
+
+
+
+
+
+St is
+Enter; I have my lord, a,
+TheAnd I do,
+
+
+E
+Ins,
+
+
+S
+I,
+That I shall,
+
+
+
+
+AndAnd in the
+
+
+M.
+And
+T,
+
+T
+
+------------------------------------------------------------------------------------------------------------------------
+Generated sample text for merges=10000, n=9, lambdas=[0.47705184510502663, 0.5229416246964314, 6.50590280615023e-06, 1.93467207194241e-08, 4.166780222922631e-09, 6.394420522463613e-10, 8.890751050058978e-11, 3.4077287618571974e-11, 1.9808191456683198e-11]:
+
+<<<<  curious fain Nilus stoops soc the
+
+C,
+
+
+
+
+
+
+
+
+
+,
+L
+Be
+
+DES
+
+A
+
+
+,
+
+I, I and a you,
+B
+
+And and
+
+
+
+,
+
+
+
+
+.
+
+A,
+.
+
+
+O
+E of the,
+T:, my
+
+
+
+ the the
+, with me
+,
+ the
+I
 ------------------------------------------------------------------------------------------------------------------------

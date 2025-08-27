@@ -16,17 +16,14 @@ Data set: [shakespeare](./data/) <br>
   ```python clean_nltk_shakespear_data_w_nl.py``` <br>
 
 
-run main to train a new <[gpt_model](./gpt_model.py).GPTModel>, by chainging the variables you can also continue the training of a pericular model. <br>
+<!-- run main to train a new <[gpt_model](./gpt_model.py).GPTModel>, by chainging the variables you can also continue the training of a pericular model. <br>
 run compare models to see and compare all the models. <br>
-run model_ui_gradio for visual interface (has bugs to be fixed) <br>
+run model_ui_gradio for visual interface (has bugs to be fixed) <br> -->
 
+# Milestones and Results
 
-TODO:
- - put results here and briefly describe them. 
-... 
-example: <br>
-Tiny-GPT training curves: <br>
-<img src="./results/GPT/GPT_training_plot.png" alt="GPT training curves" width="720"> <br>
+## Overall model comparison
+<img src="./results/model_comparison_test_results_ppl.png" alt="model_comparison_ppl" width="720"> <br>
 
 # MilestonesResults
 
@@ -101,6 +98,7 @@ Tiny-GPT training curves: <br>
 - Perplexity increases sharply with the number of merges for train, validation, and test sets alike. The best performance (lowest PPL ≈ 7–8) is achieved with very few merges (k=10). At higher merges (k > 800), perplexity rises strongly, reaching >60 at k=800, indicating that larger vocabularies reduce the predictive quality of the N-gram model.
 
 ### Generated Text
+
 #### Overview:
 - Few merges (k=10): Very short tokens → fragmented nonsense, many invented words.
 - Moderate merges (k=200): More real words, partial structure, but grammar unstable.
@@ -164,11 +162,98 @@ Examples (given context: “shall the lovers”):
       What you, and
       C
 
-### neural bigram model
+## neural bigram model
+[neural bigram model](./neural_bigram.py) <br>
+[neural bigram model notebook](./notebooks/neural_bigram.ipynb) <br>
+[neural bigram model hparam search notebook](./notebooks/neural_bigram_hparams.ipynb) <br>
 
-### GPT model
+
+### model description
+The neural bigram model is a simple feedforward ANN with only an embedding layer (vocab size x vocab size matrix) it maps each token to a vector of logits for the next token. <br>
+- input: (batch size, block size) tensor of integers (token indices)
+- output: (batch size, block size, vocab size) tensor of logits for the next token of each input token
+- loss: cross entropy loss between the logits and the true next token indices
+- regularization: weight decay and dropout on the embedding layer. <br>
+
+the model is trained using mini-batch stochastic gradient descent (SGD) or AdamW optimizers. <br>
+the training also includes learning rate scheduling (warmup and cosine decay).
+
+### training curve
+<img src="./results/nBigram/nBigram_training_plot.png" alt="nBigram training curves" width="720"> <br>
+
+### hyperparameter search analysis
+Hyperparameter search with grid search over:
+- number of merges (~vocab size)
+- learning rate
+- dropout
 
 
-<br><br><br>
-# TODO
-- pseudocode
+<img src="./results/nBigram/hparams_search/nBigram_hparams_analysis_overview.png" alt="nBigram_hparam_search_analysis" width="720"> <br>
+
+### test results
+<img src="./results/nBigram/hparams_search/nBigram_test_results_ppl.png" alt="nBigram test_results_ppl" width="720"> <br>
+
+### text generation examples
+```
+>>>> 
+shall the lovers
+--------------------
+<<<<  
+of his
+Heel, as I see me with a mother.
+Hath Sirs
+Swards
+MARK
+Madness' the litch of the wience of
+SCENE I
+```
+
+
+## GPT model
+[GPT model](./GPT_mj.py) <br>
+[GPT model notebook](./notebooks/GPT.ipynb) <br>
+[GPT model hparam search notebook](./notebooks/GPT_hparams.ipynb) <br>
+
+### model description
+The GPT model is a decoder only transformer model as described in the [Attention is all you need](https://arxiv.org/abs/1706.03762) paper. <br>
+<!-- brief walkthrough of the model general structure -->
+the model consists of:
+- input embedding layer (vocab size x embedding size matrix)
+- positional encoding (learned or fixed)
+- multiple transformer blocks
+- layer normalization
+- output linear layer (embedding size x vocab size matrix)
+
+the transformer block consists of:
+- multi-head self-attention layer
+- layer normalization
+- feedforward layer
+- layer normalization
+- residual connections
+- dropout
+
+
+### training curve
+<img src="./results/GPT/GPT_training_plot.png" alt="GPT training curves" width="720"> <br>
+
+### hyperparameter search analysis
+<img src="./results/GPT/hparams_search/GPT_hparams_analysis_overview.png" alt="GPT_hparam_search_analysis" width="720"> <br>
+
+### test results
+<img src="./results/GPT/hparams_search/GPT_test_results_ppl.png" alt="GPT test_results_ppl" width="720"> <br>
+
+### text generation examples
+
+```
+>>>> 
+shall the lovers
+--------------------
+<<<< 
+The treases.
+
+
+All
+Raning is the full of thried;
+Make me, that thou art not,
+I will be serve for hers.
+```
