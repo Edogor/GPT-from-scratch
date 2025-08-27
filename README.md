@@ -28,17 +28,14 @@ example: <br>
 Tiny-GPT training curves: <br>
 <img src="./results/GPT/GPT_training_plot.png" alt="GPT training curves" width="720"> <br>
 
-# Results
+# MilestonesResults
 
-## milestones
+## Unix
+    tr 'A-Z' 'a-z' < Shakespeare_clean_full.txt | tr -sc 'A-Za-z' '\n' | sort | uniq -c | sort -n -r
 
-### Unix
-tr 'A-Z' 'a-z' < Shakespeare_clean_full.txt | tr -sc 'A-Za-z' '\n' | sort | uniq -c | sort -n -r
-
-### tokenizer
+## tokenizer
 <img src="./results/tokenizer/tokenizer_search_results.png" alt="GPT training curves" width="720"> <br>
-Explanations (for each subplot)
-
+### Explanations (for each subplot)
 #### Heaps K vs. merges
 - Shows the Heaps’ law constant  𝐾, which reflects vocabulary growth.
 - Higher 𝐾 at low merges means many unique tokens; it drops as merges increase.
@@ -66,7 +63,7 @@ Explanations (for each subplot)
 - Average number of tokens needed per 1k characters.
 - Decreases with merges, showing more compact representation.
 
-#### General takeaway
+### General takeaway
 
 - Low k (few merges): small vocab, many tokens, high utilization.
 
@@ -74,8 +71,104 @@ Explanations (for each subplot)
 
 - Optimal range (~800–1200 merges, green lines): balances efficiency and utilization.
 
-### ngram model
+</br>
+
+## N-Gram model
+### Hyperparameter search analysis
+<img src="./results\ngram\hparams_search\ngram_hparams_fit_results.png" alt="GPT training curves" width="720"> <br>
+
+### Explanation of Results
+#### Interpolation Weights (top-left):
+- The heatmap shows the learned λ-weights for combining different N-grams. Most weight is concentrated on lower N when merges are small, while higher N contribute more as merges increase.
+
+#### Validation PPL & BPT (top-middle & top-right):
+- Both perplexity (PPL) and bits-per-token (BPT) increase steadily as the number of merges grows, meaning larger vocabularies make the N-gram model less predictive and less efficient. The best results are achieved with relatively small merges and moderate N (≈4–5), where PPL and BPT reach their lowest values.
+
+#### Bottom row (Chars per Token, Validation PPL, Validation BPT vs. Merges):
+- All three curves confirm the same trend: merges produce longer tokens, but at the cost of higher perplexity and BPT. This shows that for N-gram models, smaller vocabularies provide better predictive power and efficiency, while large vocabularies lead to diminishing returns.
+
+#### Takeaway
+
+- Small to medium merges (≈50–200) with N=4–5 yield the best trade-off between perplexity and efficiency.
+
+- Too few merges → overly fragmented tokens; too many merges → inefficient and poor generalization.
+
+- The optimal tokenizer size for N-gram models is much smaller than for modern neural LMs.
+
+### Test results
+<img src=".\results\ngram\hparams_search\ngram_more_test_results.jpg" alt="GPT training curves" width="720"> <br>
+#### Perplexity across merges:
+- Perplexity increases sharply with the number of merges for train, validation, and test sets alike. The best performance (lowest PPL ≈ 7–8) is achieved with very few merges (k=10). At higher merges (k > 800), perplexity rises strongly, reaching >60 at k=800, indicating that larger vocabularies reduce the predictive quality of the N-gram model.
+
+### Generated Text
+#### Overview:
+- Few merges (k=10): Very short tokens → fragmented nonsense, many invented words.
+- Moderate merges (k=200): More real words, partial structure, but grammar unstable.
+- Large merges (k=800): Fluent words and names, but coherence breaks down quickly.
+
+#### Generated Text Examples (N=9, different merge sizes)
+Examples (given context: “shall the lovers”):
+- merges=10, n=9, lambdas ≈ [~0, ~0, 0.395, 0.605, ~0, ~0, ~0, ~0, ~0]:<br> (fragmented nonsense)
+
+      ?
+      Antony with tim.
+      Marchoice,
+      Alare I'll drance,
+      Andeed prime
+
+
+      Meeds affore me, I drophese?
+      An now, with 
+
+  </br>
+- merges=200, n=9, lambdas ≈ [~0, 0.541, 0.459, ~0, ~0, ~0, ~0, ~0, ~0]:
+
+      Sce Yound,
+      And their cou know, I cangain, I dice,
+      BERCAPULET
+      MItulavene of my chan that the from the take theyes; and eart.
+
+
+
+
+      Exe to be satter;
+      Faphount all my let,
+      But to be a riev
+</br>
+
+- merges=800, n=9, lambdas ≈ [~0, 1.000, ~0, ~0, ~0, ~0, ~0, ~0, ~0]:
+
+      bese Wheo be senter. If welieceiveder
+
+
+      And in that we may be,
+
+      Servant
+
+
+      Ifabinion,
+
+
+
+
+
+
+      Thange thee?
+      BRUTUS
+      H
+      Thisonst your dutio is a turn.
+      SCOrongue on your corattle;
+
+
+
+      What you, and
+      C
 
 ### neural bigram model
 
 ### GPT model
+
+
+<br><br><br>
+# TODO
+- pseudocode
