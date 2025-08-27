@@ -32,8 +32,48 @@ Tiny-GPT training curves: <br>
 
 ## milestones
 
-### tokenizer
+### Unix
 tr 'A-Z' 'a-z' < Shakespeare_clean_full.txt | tr -sc 'A-Za-z' '\n' | sort | uniq -c | sort -n -r
+
+### tokenizer
+<img src="./results/tokenizer/tokenizer_search_results.png" alt="GPT training curves" width="720"> <br>
+Explanations (for each subplot)
+
+#### Heaps K vs. merges
+- Shows the Heaps’ law constant  𝐾, which reflects vocabulary growth.
+- Higher 𝐾 at low merges means many unique tokens; it drops as merges increase.
+
+#### Heaps β vs. merges
+- Displays the Heaps’ law exponent β, measuring how fast vocab grows with corpus size.
+- β rises with merges, stabilizing at higher values.
+
+#### Utilization vs. merges
+
+- Fraction of vocab actually used.
+
+- Peaks at moderate merges, then declines as vocab becomes too large and sparse.
+
+#### Chars per token vs. merges
+- Average number of characters per token.
+
+- Increases with merges (tokens become longer), flattening at ~3 chars/token.
+
+#### Compression ratio vs. merges
+- Ratio of model text size to raw text.
+- Improves (higher compression) with more merges, but saturates after ~8–10k merges.
+
+#### Tokens per 1k chars vs. merges
+- Average number of tokens needed per 1k characters.
+- Decreases with merges, showing more compact representation.
+
+#### General takeaway
+
+- Low k (few merges): small vocab, many tokens, high utilization.
+
+- High k (many merges): large vocab, fewer tokens, but less efficient utilization.
+
+- Optimal range (~800–1200 merges, green lines): balances efficiency and utilization.
+
 ### ngram model
 
 ### neural bigram model
