@@ -3,12 +3,8 @@ language modeling with ngram up to simple GPT model (decoder only transformer) a
 
 In [notebooks/](./notebooks/) you can find a guided runthrough of training and using the models, as well as analyses of the hyperparameter search. <br>
 
-# Unix segmentaion and sorting
- tr ‘A-Z’ ‘a-z’ < shakes.txt | tr –sc ‘A-Za-z’ ‘\n’ | sort | uniq –c | sort –n –r
-
-
 Tokenizer: <br>
-- byte level bpe tokenizer [ [from scratch](./pe_tokenizer.py) | [hf wraper](./bpe_hf.py) ] <br>
+- byte level bpe tokenizer [ [from scratch](./bpe_tokenizer.py) | [hf wraper](./bpe_hf.py) ] <br>
   
 Models implemented:
 - [Ngram model](./ngram_engine) <br>
@@ -25,14 +21,21 @@ run compare models to see and compare all the models. <br>
 run model_ui_gradio for visual interface (has bugs to be fixed) <br>
 
 
-# Results
-
 TODO:
  - put results here and briefly describe them. 
 ... 
-
 example: <br>
 Tiny-GPT training curves: <br>
 <img src="./results/GPT/GPT_training_plot.png" alt="GPT training curves" width="720"> <br>
-Comparison of models on held out test data: <br>
-<img src="./results/model_comparison_test_results_ppl.png" alt="Model comparison on test data" width="720"> <br>
+
+# Results
+
+## milestones
+
+### tokenizer
+tr 'A-Z' 'a-z' < Shakespeare_clean_full.txt | tr -sc 'A-Za-z' '\n' | sort | uniq -c | sort -n -r
+### ngram model
+
+### neural bigram model
+
+### GPT model
