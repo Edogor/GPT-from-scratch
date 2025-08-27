@@ -3,6 +3,10 @@ language modeling with ngram up to simple GPT model (decoder only transformer) a
 
 In [notebooks/](./notebooks/) you can find a guided runthrough of training and using the models, as well as analyses of the hyperparameter search. <br>
 
+#Unix segmentaion and sorting
+ tr ‘A-Z’ ‘a-z’ < shakes.txt | tr –sc ‘A-Za-z’ ‘\n’ | sort | uniq –c | sort –n –r
+
+
 Tokenizer: <br>
 - byte level bpe tokenizer [ [from scratch](./pe_tokenizer.py) | [hf wraper](./bpe_hf.py) ] <br>
   
