@@ -5,36 +5,62 @@ test generation format:
 <<<< <generated_text>
 ========================================================================================================================
 
-merges=200, lr=3.000000e-04, dropout=0.2
-model parameters count: 6564096
+merges=10, n_embed=256, n_heads=8, n_layers=8, lr=3.000000e-04, dropout=0.2
+model_size: 6466816
+Test PPL: 4.06, val PPL: 4.49, train PPL: 4.532036304473877
+
+>>>> shall the lovers
+--------------------
+<<<<  give. Being cause shame ducatch;
+Her much spads to gre
+------------------------------------------------------------------------------------------------------------------------
+merges=50, n_embed=256, n_heads=4, n_layers=8, lr=3.000000e-04, dropout=0.2
+model_size: 6487296
+Test PPL: 5.75, val PPL: 6.59, train PPL: 6.775343894958496
+
+>>>> shall the lovers
+--------------------
+<<<<  are, when chieven his
+dood with the goin's furst, through money fures for i
+------------------------------------------------------------------------------------------------------------------------
+merges=200, n_embed=256, n_heads=2, n_layers=8, lr=3.000000e-04, dropout=0.2
+model_size: 6564096
 Test PPL: 9.62, val PPL: 11.10, train PPL: 11.244375228881836
 
 >>>> shall the lovers
 --------------------
-<<<<  fool at thy witer,
-What between her built alies?
+<<<< 
+Cred in a ground.
 
 
 
-BRUTUS
-But not what do you away?
+ROMEO
+To sevolatified to wise him,
+And some people.
+
 
 ------------------------------------------------------------------------------------------------------------------------
-merges=800, lr=3.000000e-04, dropout=0.2
-model parameters count: 6871296
+merges=800, n_embed=256, n_heads=2, n_layers=8, lr=3.000000e-04, dropout=0.2
+model_size: 6871296
 Test PPL: 18.29, val PPL: 22.01, train PPL: 20.74727439880371
 
 >>>> shall the lovers
 --------------------
 <<<< 
-The treases.
+Than that be appar'd for my life, or no more to the king
+And that which my lord, for you would do bange thee so
+That I have told them fellow and rep
+------------------------------------------------------------------------------------------------------------------------
+merges=1200, n_embed=256, n_heads=2, n_layers=8, lr=3.000000e-04, dropout=0.2
+model_size: 7076096
+Test PPL: 19.93, val PPL: 26.37, train PPL: 24.11633682250977
 
+>>>> shall the lovers
+--------------------
+<<<<  have satform'd in your tyarn,
+Ep to the gros of my sing-comictsy
+Direconsterate. I am well to him.
 
-
-All
-Raning is the full of thried;
-Make me, that thou art not,
-I will be serve for hers.
 
 
 ------------------------------------------------------------------------------------------------------------------------

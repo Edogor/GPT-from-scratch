@@ -751,6 +751,15 @@ def plot_generelization_gap(
         ax.errorbar(tab.index.values, tab["mean"].values, yerr=ci, fmt="o-", capsize=3)
         ax.set_xlabel(hp)
         ax.set_ylabel(ylabel)
+        if hp == "model_size":
+            # more sparse ticks for model_size
+            ax.set_xticks(tab.index.values[::2])
+            ax.set_xticklabels(
+                tab.index.values[::2],
+                rotation=45,
+                fontsize=8,
+            )
+
         ax.set_title(f"Generalization gap vs {hp} (mean ± 95% CI)")
         if created:
             plt.tight_layout()
@@ -789,6 +798,14 @@ def plot_generelization_gap(
 
     ax.set_xticks(x_pos)
     ax.set_xticklabels(x_vals, rotation=45)
+    if hp == "model_size":
+        # more sparse ticks for model_size
+        ax.set_xticks(x_pos[::2])
+        ax.set_xticklabels(
+            x_vals[::2],
+            rotation=45,
+            fontsize=8,
+        )
     ax.set_xlabel(hp)
     ax.set_ylabel(ylabel)
     ax.set_title(f"Generalization gap vs {hp} by {groupby} (mean ± 95% CI)")

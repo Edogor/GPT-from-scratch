@@ -1,20 +1,25 @@
 test_ppl,val_ppl,train_ppl,merges,n_embed,n_heads,n_layers,model_size,test_loss,lr,dropout,weight_decay,scheduler,vocab_size,val_loss,train_loss,epochs,ckpt_best,ckpt_last,full_config_file,run,run_name,ckpt_path,generated_text_sample,context
-9.62426841513318,11.09883975982666,11.244375228881836,200,256,2,8,6564096,2.2642878684676995,0.0003,0.2,0.0001,cosine_warmup,460,2.406840547260485,2.419868090175304,30,../checkpoints/GPT/hparams_search/best_hps_250827_095358_47efe79a.pt,../checkpoints/GPT/hparams_search/last_hps_250827_095358_47efe79a.pt,../checkpoints/GPT/hparams_search/hps_250827_095358_47efe79a_hparams.json,hps_250827_095358_47efe79a,hps_250827_095358_47efe79a,../checkpoints/GPT/hparams_search/best_hps_250827_095358_47efe79a.pt," fool at thy witer,
-What between her built alies?
+4.062988222342204,4.49188756942749,4.532036304473877,10,256,8,8,6466816,1.4019187182423936,0.0003,0.2,0.0001,cosine_warmup,270,1.5022729630438274,1.5111713476573243,30,../checkpoints/GPT/hparams_search/best_hps_250828_134145_574cfe14.pt,../checkpoints/GPT/hparams_search/last_hps_250828_134145_574cfe14.pt,../checkpoints/GPT/hparams_search/hps_250828_134145_574cfe14_hparams.json,hps_250828_134145_574cfe14,hps_250828_134145_574cfe14,../checkpoints/GPT/hparams_search/best_hps_250828_134145_574cfe14.pt," give. Being cause shame ducatch;
+Her much spads to gre",shall the lovers
+5.75164988627212,6.591406345367432,6.775343894958496,50,256,4,8,6487296,1.7494867503937623,0.0003,0.2,0.0001,cosine_warmup,310,1.88576668761796,1.913290091746088,30,../checkpoints/GPT/hparams_search/best_hps_250828_142313_5a4decce.pt,../checkpoints/GPT/hparams_search/last_hps_250828_142313_5a4decce.pt,../checkpoints/GPT/hparams_search/hps_250828_142313_5a4decce_hparams.json,hps_250828_142313_5a4decce,hps_250828_142313_5a4decce,../checkpoints/GPT/hparams_search/best_hps_250828_142313_5a4decce.pt," are, when chieven his
+dood with the goin's furst, through money fures for i",shall the lovers
+9.62426841513318,11.09883975982666,11.244375228881836,200,256,2,8,6564096,2.2642878684676995,0.0003,0.2,0.0001,cosine_warmup,460,2.406840547260485,2.419868090175304,30,../checkpoints/GPT/hparams_search/best_hps_250827_095358_47efe79a.pt,../checkpoints/GPT/hparams_search/last_hps_250827_095358_47efe79a.pt,../checkpoints/GPT/hparams_search/hps_250827_095358_47efe79a_hparams.json,hps_250827_095358_47efe79a,hps_250827_095358_47efe79a,../checkpoints/GPT/hparams_search/best_hps_250827_095358_47efe79a.pt,"
+Cred in a ground.
 
 
 
-BRUTUS
-But not what do you away?
+ROMEO
+To sevolatified to wise him,
+And some people.
+
 ",shall the lovers
 18.292560739592034,22.008773803710938,20.74727439880371,800,256,2,8,6871296,2.906494460234771,0.0003,0.2,0.0001,cosine_warmup,1060,3.091441180254962,3.032414934230968,30,../checkpoints/GPT/hparams_search/best_hps_250827_103351_be76fdf0.pt,../checkpoints/GPT/hparams_search/last_hps_250827_103351_be76fdf0.pt,../checkpoints/GPT/hparams_search/hps_250827_103351_be76fdf0_hparams.json,hps_250827_103351_be76fdf0,hps_250827_103351_be76fdf0,../checkpoints/GPT/hparams_search/best_hps_250827_103351_be76fdf0.pt,"
-The treases.
+Than that be appar'd for my life, or no more to the king
+And that which my lord, for you would do bange thee so
+That I have told them fellow and rep",shall the lovers
+19.933024124286803,26.366411209106445,24.11633682250977,1200,256,2,8,7076096,2.9923778600086366,0.0003,0.2,0.0001,cosine_warmup,1460,3.2720908443484684,3.1828894066777167,30,../checkpoints/GPT/hparams_search/best_hps_250828_145314_f20d4c4e.pt,../checkpoints/GPT/hparams_search/last_hps_250828_145314_f20d4c4e.pt,../checkpoints/GPT/hparams_search/hps_250828_145314_f20d4c4e_hparams.json,hps_250828_145314_f20d4c4e,hps_250828_145314_f20d4c4e,../checkpoints/GPT/hparams_search/best_hps_250828_145314_f20d4c4e.pt," have satform'd in your tyarn,
+Ep to the gros of my sing-comictsy
+Direconsterate. I am well to him.
 
-
-
-All
-Raning is the full of thried;
-Make me, that thou art not,
-I will be serve for hers.
 
 ",shall the lovers
