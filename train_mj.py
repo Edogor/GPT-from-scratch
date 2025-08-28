@@ -16,6 +16,25 @@ from utils import set_seed, save_checkpoint, load_checkpoint
 
 @dataclass
 class ConfigTrain:
+    """
+    Configuration for training.
+
+    Attributes:
+        device: Device to use for training (default: "cuda" if available, else "cpu").
+        epochs: Number of training epochs (default: 10).
+        use_amp: Whether to use automatic mixed precision (default: True).
+        grad_accum_steps: Number of gradient accumulation steps (default: 1).
+        early_stop_patience: Patience for early stopping (default: 5).
+        early_stop_tolerance: Tolerance for early stopping (default: 0).
+        seed: Random seed for reproducibility (default: 666).
+        eval_interval: Interval (in epochs) for evaluation (default: 5).
+        ckpt_interval: Interval (in epochs) for checkpointing (default: 5).
+        ckpt_dir: Directory to save checkpoints (default: "checkpoints").
+        ckpt_best_filename: Filename for the best checkpoint (default: "best.pt").
+        ckpt_last_filename: Filename for the last checkpoint (default: "last.pt").
+        log_dir: Directory for TensorBoard logs (default: "logs").
+    """
+
     device: str = "cuda" if torch.cuda.is_available() else "cpu"
     epochs: int = 10
     use_amp: bool = True
@@ -45,6 +64,13 @@ class ConfigTrain:
 def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> float:
     """
     Evaluate the model on the given DataLoader and return the loss (mean negative log-likelihood (NLL)).
+
+    Parameters:
+    - model: The neural network model to evaluate.
+    - loader: DataLoader for evaluation data.
+    - device: Device to run the evaluation on.
+    Returns:
+    - mean_nll: Mean negative log-likelihood over the dataset.
     """
     model.eval()
     total_nll = 0.0
@@ -70,6 +96,13 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> floa
 def evaluate_ppl(model: nn.Module, loader: DataLoader, device: torch.device) -> float:
     """
     Evaluate the model on the given DataLoader and return the perplexity.
+
+    Parameters:
+    - model: The neural network model to evaluate.
+    - loader: DataLoader for evaluation data.
+    - device: Device to run the evaluation on.
+    Returns:
+    - perplexity: Perplexity over the dataset.
     """
     model.eval()
     mean_nll = evaluate(model, loader, device)

@@ -8,6 +8,13 @@ import dataclasses
 
 @dataclasses.dataclass
 class ConfigNeuralBigram:
+    """Configuration for NeuralBigram model.
+
+    Attributes:
+        vocab_size: Size of the vocabulary (default: 256).
+        dropout: Dropout rate (default: 0.0).
+    """
+
     vocab_size: int = 256
     dropout: float = 0.0
 

@@ -111,7 +111,16 @@ def train_and_encode_tokenizer(
     merges: int = 200,
     **kwargs,
 ) -> Dict[str, Any]:
+    """
+    Train a tokenizer and encode the training text and other texts.
 
+    Parameters:
+    - tokenizer_trainer: Function to train the tokenizer (e.g. train_bytelevel_bpe).
+    - train_text_path: Path to the training text file.
+    - other_texts_paths: Dictionary of other text files to encode (key: name, value: path).
+    - merges: Number of BPE merges.
+    - kwargs: Additional arguments to pass to the tokenizer trainer.
+    """
     if other_texts_paths is None:
         other_texts_paths = {}
 
@@ -173,6 +182,17 @@ def avg_token_chr_length(tokens: list[str]) -> float:
 
 
 def compression_ratio_agnostic(token_ids, raw_text_utf8: str, *, vocab_size=None):
+    """
+    Compute agnostic compression ratio: model bits / raw bits.
+
+    Parameters:
+    - token_ids: list of token IDs (e.g. from a tokenizer)
+    - raw_text_utf8: original raw text (UTF-8 string)
+    - vocab_size: vocabulary size of the tokenizer (if None, raises ValueError)
+    Returns:
+    - dict with ratio_model_over_raw, compression_gain_x, model_bits, raw_bits
+    """
+
     if vocab_size is None:
         raise ValueError("vocab_size must be provided for agnostic compression ratio")
 
@@ -194,6 +214,15 @@ def compression_ratio_agnostic(token_ids, raw_text_utf8: str, *, vocab_size=None
 
 
 def vocab_utilization(token_ids, vocab_size):
+    """
+    Compute vocabulary utilization: fraction of vocab used and number of unique types.
+
+    Parameters:
+    - token_ids: list of token IDs (e.g. from a tokenizer)
+    - vocab_size: vocabulary size of the tokenizer
+    Returns:
+    - dict with utilization (fraction) and unique_types (count)
+    """
     used = len(set(token_ids))
     return {"utilization": used / vocab_size, "unique_types": used}
 
@@ -299,6 +328,30 @@ def fit_tokenizer_params(
     plot_heaps: bool = False,
     csv_log_path: str | None = None,
 ):
+    """
+        Fit tokenizer parameters (e.g. BPE merges) by training on train_text_path
+        and evaluating on val_text_path. Computes various metrics including Heaps' law.
+        Returns a DataFrame with results for each parameter setting.
+
+        Parameters:
+        - train_text_path: Path to the training text file.
+        - val_text_path: Path to the validation text file.
+        - merges_grid: Iterable of merge counts to try.
+        - tokenizer_trainer: Function to train the tokenizer (e.g. train_bytelevel_b
+    pe).
+        - special_tokens: Dictionary of special tokens to include in the vocabulary.
+        - min_frequency: Minimum frequency for a token to be included in the vocabulary.
+        - lowercase: Whether to lowercase the input text.
+        - add_prefix_space: Whether to add a space before each byte (GPT-style).
+        - target_tokens: N* for Heaps extrapolation; if None, uses 5x len(val_ids).
+        - heaps_step: Step size for Heaps curve computation.
+        - verbose: Whether to print progress messages.
+        - plot_heaps: Whether to plot Heaps curves for each setting.
+        - csv_log_path: If provided, path to save the results DataFrame as CSV.
+
+        Returns:
+        - DataFrame with results for each parameter setting.
+    """
     if tokenizer_trainer is None:
         raise ValueError("pass tokenizer_trainer= train_bytelevel_bpe")
     if special_tokens is None:

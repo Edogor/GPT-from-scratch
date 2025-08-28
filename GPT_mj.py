@@ -9,6 +9,18 @@ import torch.nn.functional as F
 
 @dataclass
 class ConfigGPT:
+    """Configuration for the GPT model.
+
+    Attributes:
+        vocab_size (int): Size of the vocabulary.
+        block_size (int): Maximum context length.
+        n_embed (int): Dimensionality of the embeddings.
+        n_head (int): Number of attention heads.
+        n_layer (int): Number of transformer layers.
+        dropout (float): Dropout rate.
+        bias (bool): Whether to include bias terms in linear layers.
+    """
+
     vocab_size: int = 256
     block_size: int = 128  # context length T
     n_embed: int = 512
@@ -143,11 +155,11 @@ class DecoderBlock(nn.Module):
 class GPT(nn.Module):
     def __init__(self, config: ConfigGPT):
         super(GPT, self).__init__()
-        # self.vocab_size = config.vocab_size
-        # self.block_size = config.block_size
-        # self.n_embed = config.n_embed
-        # self.n_head = config.n_head
-        # self.n_layer = config.n_layer
+        self.vocab_size = config.vocab_size
+        self.block_size = config.block_size
+        self.n_embed = config.n_embed
+        self.n_head = config.n_head
+        self.n_layer = config.n_layer
 
         for k, v in config.__dict__.items():
             setattr(self, k, v)
@@ -186,7 +198,7 @@ class GPT(nn.Module):
     def forward(self, x: torch.Tensor, only_last=False) -> torch.Tensor:
         B, T = x.size()
         device = x.device
-        assert T <= self.block_size, "Input sequence length exceeds block size."
+        # assert T <= self.block_size, "Input sequence length exceeds block size."
 
         # get token and position embeddings
         token_emb = self.embedding(x)  # (B, T, n_embed)

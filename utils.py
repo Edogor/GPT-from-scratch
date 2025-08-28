@@ -27,6 +27,20 @@ class TextDataset(Dataset):
 
 
 def init_dataloader(data_ids, block_size=128, batch_size=64, train=True, shuffle=True, **kwargs):
+    """
+    Initialize a DataLoader for the given text IDs.
+
+    Parameters:
+    - data_ids: List or array of token IDs.
+    - block_size: Size of each sequence block.
+    - batch_size: Number of samples per batch.
+    - train: Whether to create a DataLoader for training (shuffled) or evaluation (not shuffled).
+    - shuffle: Whether to shuffle the data (only applicable if train is True).
+    - kwargs: Additional keyword arguments for DataLoader.
+
+    Returns:
+    - DataLoader instance.
+    """
     train_dataset = TextDataset(data_ids, block_size)
     if torch.cuda.is_available():
         num_workers = kwargs.get("num_workers", 2)

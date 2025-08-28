@@ -43,6 +43,16 @@ class HparamsSpace:
 
 @dataclass
 class HparamsSpaceNBigram(HparamsSpace):
+    """
+    hparam search space for NeuralBigram model
+
+    Attributes:
+        merges: Iterable[int] - number of BPE merges
+        dropout: Iterable[float] - dropout rates
+        lr: Iterable[float] - learning rates
+        lr_scheduler: Iterable[str] - learning rate scheduler names
+    """
+
     merges: Iterable[int] = (200,)
     dropout: Iterable[float] = (0.2,)
     lr: Iterable[float] = (3e-3,)
@@ -51,6 +61,19 @@ class HparamsSpaceNBigram(HparamsSpace):
 
 @dataclass
 class HparamsSpaceGPT(HparamsSpace):
+    """
+    hparam search space for GPT model
+
+    Attributes:
+        merges: Iterable[int] - number of BPE merges
+        n_embed: Iterable[int] - embedding dimension
+        n_heads: Iterable[int] - number of attention heads
+        n_layers: Iterable[int] - number of transformer layers
+        dropout: Iterable[float] - dropout rates
+        lr: Iterable[float] - learning rates
+        lr_scheduler: Iterable[str] - learning rate scheduler names
+    """
+
     merges: Iterable[int] = (200,)
     n_embed: Iterable[int] = (64,)
     n_heads: Iterable[int] = (4,)
@@ -98,6 +121,28 @@ def hparams_search_nBigram(
     weight_decay: float = 1e-4,
     verbose: bool = False,
 ):
+    """
+    Hparams search for NeuralBigram model.
+    For each combination of hparams in hp_space, a new model is trained from scratch and evaluated on the val set.
+
+    Parameters:
+        hp_space: HparamsSpaceNBigram - hparam search space
+        base_cfg_train: ConfigTrain - base training config (will be copied and modified per run)
+        base_cfg_model: ConfigNeuralBigram - base model config (will be copied and modified per run)
+        train_text_path: str - path to training text file
+        val_text_path: str - path to validation text file
+        tokenizer_trainer: callable - function to train the tokenizer
+        special_tokens: dict - special tokens for the tokenizer
+        tok_min_frequency: int - minimum frequency for BPE merges
+        tok_save_dir: str - directory to save trained tokenizers
+        batch_size: int - batch size for training
+        block_size: int - block size (context length) for training
+        eta_min: float - minimum learning rate for schedulers
+        weight_decay: float - weight decay for optimizer
+        verbose: bool - whether to print progress messages
+    Returns:
+        pd.DataFrame - dataframe with results for each hparam combination
+    """
     os.makedirs(base_cfg_train.log_dir, exist_ok=True)
     os.makedirs(base_cfg_train.ckpt_dir, exist_ok=True)
     os.makedirs(tok_save_dir, exist_ok=True)
@@ -297,6 +342,28 @@ def hparams_search_GPT(
     weight_decay: float = 1e-4,
     verbose: bool = False,
 ):
+    """
+    Hparams search for GPT model.
+    For each combination of hparams in hp_space, a new model is trained from scratch and evaluated on the val set.
+
+    Parameters:
+        hp_space: HparamsSpaceGPT - hparam search space
+        base_cfg_train: ConfigTrain - base training config (will be copied and modified per run)
+        base_cfg_model: ConfigGPT - base model config (will be copied and modified per run)
+        train_text_path: str - path to training text file
+        val_text_path: str - path to validation text file
+        tokenizer_trainer: callable - function to train the tokenizer
+        special_tokens: dict - special tokens for the tokenizer
+        tok_min_frequency: int - minimum frequency for BPE merges
+        tok_save_dir: str - directory to save trained tokenizers
+        batch_size: int - batch size for training
+        block_size: int - block size (context length) for training
+        eta_min: float - minimum learning rate for schedulers
+        weight_decay: float - weight decay for optimizer
+        verbose: bool - whether to print progress messages
+    Returns:
+        pd.DataFrame - dataframe with results for each hparam combination
+    """
     os.makedirs(base_cfg_train.log_dir, exist_ok=True)
     os.makedirs(base_cfg_train.ckpt_dir, exist_ok=True)
     os.makedirs(tok_save_dir, exist_ok=True)
