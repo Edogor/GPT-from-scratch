@@ -9,16 +9,14 @@ Tokenizer: <br>
 Models implemented:
 - [Ngram model](./ngram_engine) <br>
 - [Neural bigram model](./neural_bigram.py) <br>
-- [GPT model (decoder only)](./GPT_mj.py) <br>
+- [GPT model (decoder only)](./GPT.py) <br>
 
 Data set: [shakespeare](./data/) <br>
 - to download and preprocess the data run [clean_nltk_shakespear_data_w_nl.py](./data/clean_nltk_shakespear_data_w_nl.py) from the root (repo) directory: <br> 
   ```python clean_nltk_shakespear_data_w_nl.py``` <br> <br>
 
-
-<!-- run main to train a new <[gpt_model](./gpt_model.py).GPTModel>, by chainging the variables you can also continue the training of a pericular model. <br>
-run compare models to see and compare all the models. <br>
-run model_ui_gradio for visual interface (has bugs to be fixed) <br> -->
+[Training scripts](./train.py) <br>
+[Hyperparameter search scripts](./hparam_search.py) <br>
 
 # Results and Milestones
 
@@ -28,7 +26,7 @@ comparison of the three model types (ngram, neural bigram, gpt) on the heldout t
 
 Perplexity is used as the evaluation metric. <br>
 $$
-ppl = exp({H(p)}) = exp({-\frac{1}{N} \sum_{i=1}^{N} \log p(x_i)})
+  ppl = exp({H(p)}) = exp({-\frac{1}{N} \sum_{i=1}^{N} \log p(x_i)})
 $$
 
 where H(p) is the sum-cross-entropy (i.e negative log likelihood) of the model distribution p and the true data distribution. <br>
@@ -308,7 +306,7 @@ They, to being without his own hazooths of
 
 ## GPT model
 
-[GPT model](./GPT_mj.py) <br>
+[GPT model](./GPT.py) <br>
 [GPT model notebook](./notebooks/GPT.ipynb) <br>
 [GPT model hparam search notebook](./notebooks/GPT_hparams.ipynb) <br>
 
@@ -430,7 +428,7 @@ And that which my lord, for you would do bange thee so
 That I have told them fellow and rep
 ```
 
-# Qualitative analysis of generated text
+## Qualitative analysis of generated text
 
 | Model             | k=10 (few merges)                                             | k=200 (moderate merges)                                               | k=800 (many merges)                                                                |
 | ----------------- | ------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
